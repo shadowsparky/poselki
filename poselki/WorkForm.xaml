@@ -1,0 +1,25 @@
+﻿<Window x:Class="poselki.WorkForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:poselki"
+        mc:Ignorable="d"
+        Title="Работа с таблицами" Height="476.027" Width="523.973">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl>
+            <TabItem Header="Девелоперы">
+                <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
+                    <DataGrid x:Name="testos" Margin="0,0,-6,0" Loaded="testos_Loaded" Height="378" VerticalAlignment="Top"/>
+                    <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

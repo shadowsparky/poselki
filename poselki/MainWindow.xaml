@@ -6,7 +6,27 @@
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+    <Grid x:Name="mainGrid" Initialized="mainGrid_Initialized">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF829BF0" Offset="1"/>
+                <GradientStop Color="White"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="loginBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="23" Margin="0,0,0,90" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" MaxLength="15"/>
+        <Button x:Name="authButton" Grid.ColumnSpan="2" Content="Авторизация" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" Width="120" Height="30" Click="authButton_Click"/>
+        <Grid x:Name="footerGrid" Grid.ColumnSpan="2" Height="30" Margin="0" VerticalAlignment="Bottom">
+            <Grid.Effect>
+                <BlurEffect Radius="2"/>
+            </Grid.Effect>
+            <TextBlock x:Name="copy" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="AVB INC. 2018(C)" VerticalAlignment="Center"/>
+        </Grid>
+        <TextBlock x:Name="progNameText" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20"/>
+        <PasswordBox x:Name="passBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Center" Width="120" Height="20"/>
+
     </Grid>
 </Window>

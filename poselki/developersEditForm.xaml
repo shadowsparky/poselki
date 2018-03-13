@@ -1,0 +1,36 @@
+﻿<Window x:Class="poselki.developersEditForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:poselki"
+        mc:Ignorable="d"
+        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" MinWidth="335" MinHeight="365" Height="365" Width="335">
+    <Grid Height="343" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="AndEditAddGroupBox" Header="Добавить/редактировать" VerticalAlignment="Top">
+            <Button x:Name="Developers_Add_Button" Content="Добавить" HorizontalAlignment="Left" Margin="107,177,0,0" VerticalAlignment="Top" Width="75" Click="Developers_Add_Button_Click"/>
+        </GroupBox>
+        <TextBox x:Name="DevName_TB" HorizontalAlignment="Left" Height="23" Margin="116,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <TextBox x:Name="Dev_Income_TB" HorizontalAlignment="Left" Height="23" Margin="116,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <TextBox x:Name="Dev_ID_TB" HorizontalAlignment="Left" Height="23" Margin="116,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <TextBox x:Name="Village_Street_TB" HorizontalAlignment="Left" Height="23" Margin="116,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <RadioButton x:Name="Private_Company_Type_RB" Content="Частная" HorizontalAlignment="Left" Margin="224,172,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.518,1.979" Checked="Private_Company_Type_RB_Checked"/>
+        <TextBlock x:Name="Dev_ID_Labrel" HorizontalAlignment="Left" Margin="31,29,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Dev_Name_LABEL" HorizontalAlignment="Left" Margin="19,64,0,0" TextWrapping="Wrap" Text="Имя девелопера" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Income_Label" HorizontalAlignment="Left" Margin="61,92,0,0" TextWrapping="Wrap" Text="Прибыль" VerticalAlignment="Top"/>
+        <TextBox x:Name="Home_Number_TB" HorizontalAlignment="Left" Height="23" Margin="116,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="37,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="State_Company_Type_RB" Content="Государственная" HorizontalAlignment="Left" Margin="107,172,0,0" VerticalAlignment="Top" IsChecked="True" RenderTransformOrigin="0.058,-1.533"/>
+        <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="196,192,0,0" VerticalAlignment="Top" Width="99" Click="Developers_Update_Button_Click"/>
+        <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="68,113,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
+        <TextBox x:Name="DevNumDel_TB" HorizontalAlignment="Left" Height="23" Margin="116,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+        <TextBlock x:Name="DevNumDel_LABEL" HorizontalAlignment="Left" Margin="19,267,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
+        <GroupBox x:Name="DeleteDevGB" Header="Удаление девелопера" Margin="0,230,0,0" VerticalAlignment="Top">
+            <Button x:Name="DelDevButton" Content="Удалить" HorizontalAlignment="Left" Height="23" Margin="0,57,-2,0" VerticalAlignment="Top" Width="316" Click="DelDevButton_Click"/>
+        </GroupBox>
+
+    </Grid>
+</Window>
