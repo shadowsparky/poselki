@@ -58,6 +58,9 @@
     <Compile Include="developersEditForm.xaml.cs">
       <DependentUpon>developersEditForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="villagesEditForm.xaml.cs">
+      <DependentUpon>villagesEditForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WorkForm.xaml.cs">
       <DependentUpon>WorkForm.xaml</DependentUpon>
     </Compile>
@@ -82,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="villagesEditForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WorkForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -119,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Авторизация" Height="350" Width="525">
     <Grid x:Name="mainGrid" Initialized="mainGrid_Initialized">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -17,8 +17,8 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="loginBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="23" Margin="0,0,0,90" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" MaxLength="15"/>
-        <Button x:Name="authButton" Grid.ColumnSpan="2" Content="Авторизация" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" Width="120" Height="30" Click="authButton_Click"/>
+        <TextBox x:Name="loginBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="23" Margin="0,0,0,90" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" MaxLength="15" TabIndex="0"/>
+        <Button x:Name="authButton" Grid.ColumnSpan="2" Content="Авторизация" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" Width="120" Height="30" Click="authButton_Click" TabIndex="2"/>
         <Grid x:Name="footerGrid" Grid.ColumnSpan="2" Height="30" Margin="0" VerticalAlignment="Bottom">
             <Grid.Effect>
                 <BlurEffect Radius="2"/>
@@ -26,7 +26,7 @@
             <TextBlock x:Name="copy" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="AVB INC. 2018(C)" VerticalAlignment="Center"/>
         </Grid>
         <TextBlock x:Name="progNameText" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20"/>
-        <PasswordBox x:Name="passBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Center" Width="120" Height="20"/>
+        <PasswordBox x:Name="passBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Center" Width="120" Height="20" TabIndex="1"/>
 
     </Grid>
 </Window>

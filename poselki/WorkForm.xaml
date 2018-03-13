@@ -11,14 +11,17 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TabControl>
-            <TabItem Header="Девелоперы">
+            <TabItem Header="Девелоперы" Height="22" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
-                    <DataGrid x:Name="testos" Margin="0,0,-6,0" Loaded="testos_Loaded" Height="378" VerticalAlignment="Top"/>
-                    <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34"/>
+                    <DataGrid x:Name="testos" Margin="0,0,0,37" Loaded="testos_Loaded" IsReadOnly="True"/>
+                    <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34" TabIndex="1"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Поселки" Margin="-2,-2,-2,2" Height="22" VerticalAlignment="Bottom">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="Villages_Grid_Table" Loaded="testos_Loaded" IsReadOnly="True" Margin="0,0,0,37"/>
+                    <Button x:Name="Villages_Edit_Button" Content="Редактировать поселки" Margin="0" VerticalAlignment="Bottom" Height="34" Click="Villages_Edit_Button_Click"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

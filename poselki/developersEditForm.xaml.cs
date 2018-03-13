@@ -69,7 +69,14 @@ namespace poselki
             UpToDateCommand.Parameters.AddWithValue("@AI", Dev_Income_TB.Text);
             UpToDateCommand.Parameters.AddWithValue("@Street", Village_Street_TB.Text);
             UpToDateCommand.Parameters.AddWithValue("@HN", Home_Number_TB.Text);
-            UpToDateCommand.ExecuteScalarAsync();
+            try
+            {
+                UpToDateCommand.ExecuteScalarAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+            }
             _WF.UpdateDevelopers();
         }
 
@@ -77,7 +84,14 @@ namespace poselki
         {
             var DelCommand = new MySqlCommand("call developerstoredproc_DELETE(@DevNum)", _connection);
             DelCommand.Parameters.AddWithValue("@DevNum", DevNumDel_TB.Text);
-            DelCommand.ExecuteScalarAsync();
+            try
+            { 
+                DelCommand.ExecuteScalarAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+            }
             _WF.UpdateDevelopers();
         }
 
@@ -90,7 +104,14 @@ namespace poselki
             AddCommand.Parameters.AddWithValue("@AI", Dev_Income_TB.Text);
             AddCommand.Parameters.AddWithValue("@Street", Village_Street_TB.Text);
             AddCommand.Parameters.AddWithValue("@HN", Home_Number_TB.Text);
-            AddCommand.ExecuteScalarAsync();
+            try
+            {
+                AddCommand.ExecuteScalarAsync();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+            }
             _WF.UpdateDevelopers();
         }
     }
