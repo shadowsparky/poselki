@@ -21,7 +21,7 @@ namespace poselki
     public partial class developersEditForm : Window
     {
 
-        private static MySqlConnection _connection;
+        private MySqlConnection _connection;
         private static WorkForm _WF; 
 
         public MySqlConnection Connection

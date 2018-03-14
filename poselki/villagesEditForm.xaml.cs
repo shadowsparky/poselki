@@ -23,5 +23,5 @@ namespace poselki
         {
             InitializeComponent();
         }
-    } // asdasdda 
+    } // asdasdda asdasdsdasd
 }

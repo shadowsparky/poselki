@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" Height="365" Width="335" ResizeMode="NoResize">
-    <Grid Height="337" VerticalAlignment="Top" Margin="0,0,0,-1">
+        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" Height="368" Width="312" ResizeMode="NoResize">
+    <Grid VerticalAlignment="Top" Margin="0,0,-8,-3" Height="340" HorizontalAlignment="Left" Width="312">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="DeleteDevGB" Header="Удаление девелопера" Margin="0,230,0,0" VerticalAlignment="Top">
-            <Button x:Name="DelDevButton" Content="Удалить" Margin="0,57,1,0" Click="DelDevButton_Click" TabIndex="10" Height="21" VerticalAlignment="Top"/>
+        <GroupBox x:Name="DeleteDevGB" Header="Удаление девелопера" Margin="0,230,-8,-44" Padding="0,0,0,10" VerticalAlignment="Top" Height="109" HorizontalAlignment="Left" Width="304">
+            <Button x:Name="DelDevButton" Content="Удалить" Margin="0,0,1,1" Click="DelDevButton_Click" TabIndex="10" Height="21" VerticalAlignment="Bottom"/>
         </GroupBox>
 
-        <GroupBox x:Name="AndEditAddGroupBox" Header="Добавить/редактировать" VerticalAlignment="Top">
-            <Button x:Name="Developers_Add_Button" Content="Добавить" HorizontalAlignment="Left" Margin="107,177,0,0" VerticalAlignment="Top" Width="75" Click="Developers_Add_Button_Click" TabIndex="7"/>
+        <GroupBox x:Name="AndEditAddGroupBox" Header="Добавить/редактировать" VerticalAlignment="Top" Margin="0,0,-7,0">
+            <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="10,177,110,0" VerticalAlignment="Top" Click="Developers_Add_Button_Click" TabIndex="7"/>
         </GroupBox>
         <TextBox x:Name="DevName_TB" HorizontalAlignment="Left" Height="23" Margin="116,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="1"/>
         <TextBox x:Name="Dev_Income_TB" HorizontalAlignment="Left" Height="23" Margin="116,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="2"/>
@@ -28,10 +28,10 @@
         <TextBox x:Name="Home_Number_TB" HorizontalAlignment="Left" Height="23" Margin="116,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="4"/>
         <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="37,141,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="State_Company_Type_RB" Content="Государственная" HorizontalAlignment="Left" Margin="107,172,0,0" VerticalAlignment="Top" IsChecked="True" RenderTransformOrigin="0.058,-1.533" TabIndex="5"/>
-        <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="196,192,0,0" VerticalAlignment="Top" Width="99" Click="Developers_Update_Button_Click" TabIndex="8"/>
+        <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="199,192,0,0" VerticalAlignment="Top" Width="99" Click="Developers_Update_Button_Click" TabIndex="8"/>
         <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="68,113,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
-        <TextBox x:Name="DevNumDel_TB" HorizontalAlignment="Left" Height="23" Margin="116,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="9"/>
-        <TextBlock x:Name="DevNumDel_LABEL" HorizontalAlignment="Left" Margin="19,267,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
+        <TextBox x:Name="DevNumDel_TB" HorizontalAlignment="Left" Height="23" Margin="116,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="9"/>
+        <TextBlock x:Name="DevNumDel_LABEL" HorizontalAlignment="Left" Margin="19,260,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
