@@ -22,12 +22,16 @@
                 <Label x:Name="Village_Area_LAB" Content="Площадь поселка" HorizontalAlignment="Left" Margin="26,66,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label x:Name="Village_Residents_Count_LAB" Content="Количество жителей" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Height="23"/>
                 <Label x:Name="Village_Developer_Number_LAB" Content="Номер  девелопера" HorizontalAlignment="Left" Margin="15,122,0,0" VerticalAlignment="Top" Height="30"/>
-                <Button x:Name="Village_Add_BUTTON" Content="Добавить" HorizontalAlignment="Left" Margin="15,157,0,0" VerticalAlignment="Top" Width="119"/>
-                <Button x:Name="Village_Edit_BUTTON" Content="Редактировать" HorizontalAlignment="Left" Margin="139,157,0,0" VerticalAlignment="Top" Width="168"/>
+                <Button x:Name="Village_Add_BUTTON" Content="Добавить" HorizontalAlignment="Left" Margin="15,157,0,0" VerticalAlignment="Top" Width="119" Click="Village_Add_BUTTON_Click"/>
+                <Button x:Name="Village_Edit_BUTTON" Content="Редактировать" HorizontalAlignment="Left" Margin="139,157,0,0" VerticalAlignment="Top" Width="168" Click="Village_Edit_BUTTON_Click"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="Village_Delete_GB" Header="Удаление" HorizontalAlignment="Left" Height="103" Margin="0,223,0,0" VerticalAlignment="Top" Width="329">
-            <Grid/>
+            <Grid>
+                <TextBox x:Name="Village_Developer_Number_Delete_TB" HorizontalAlignment="Left" Height="23" Margin="131,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176"/>
+                <Label x:Name="Village_Developer_Number_Delete_LAB" Content="Номер девелопера" HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Village_Developer_Number_Delete_Button" Content="Удалить" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Width="297" Click="Village_Developer_Number_Delete_Button_Click"/>
+            </Grid>
         </GroupBox>
 
     </Grid>
