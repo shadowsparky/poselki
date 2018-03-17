@@ -11,16 +11,41 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TabControl>
-            <TabItem Header="Девелоперы" Height="22" VerticalAlignment="Bottom">
+            <TabItem x:Name="DevTab" Header="Девелоперы" Margin="0" HorizontalAlignment="Left" Width="85" Height="23" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
                     <DataGrid x:Name="testos" Margin="0,0,0,37" Loaded="testos_Loaded" IsReadOnly="True"/>
                     <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34" TabIndex="1"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Поселки" Margin="-2,-2,-2,2" Height="22" VerticalAlignment="Bottom">
+            <TabItem x:Name="VillagesTab" Header="Поселки" Margin="0" Height="23" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="Villages_Grid_Table" Loaded="testos_Loaded" IsReadOnly="True" Margin="0,0,0,37"/>
-                    <Button x:Name="Villages_Edit_Button" Content="Редактировать поселки" Margin="0" VerticalAlignment="Bottom" Height="34" Click="Villages_Edit_Button_Click"/>
+                    <Button x:Name="Villages_Edit_Button" Content="Редактировать поселки" Margin="0" VerticalAlignment="Bottom" Height="34" Click="Villages_Edit_Button_Click" IsDefault="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="VillageHousesTab" Header="Дома" HorizontalAlignment="Left" Width="54" Margin="0">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="VillageHouses_Grid_Table" Margin="0,0,0,37" IsReadOnly="True"/>
+                    <Button x:Name="VillageHouses_Edit_Button" Content="Редактирование домов" Margin="0" VerticalAlignment="Bottom" Height="36" IsDefault="True" Click="VillageHouses_Edit_Button_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="CompanyTypes_ITEM" Header="Типы компаний" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="Company_Types_DataGRID" Margin="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="House_Types_ITEM" Header="Типы домов" Height="23" Margin="0">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid x:Name="House_Types_DataGRID" Margin="0" IsReadOnly="True"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="AdminTAB" Header="Аккаунты" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
+                <Grid Background="#FFE5E5E5" Height="417" VerticalAlignment="Top" Margin="0,0,0,-3">
+                    <Button x:Name="ADMIN_EditUsersBUTTON" Content="Редактировать пользователей" VerticalAlignment="Bottom" Height="33" IsDefault="True" Click="ADMIN_EditUsersBUTTON_Click"/>
+                    <DataGrid x:Name="AdminAccountsGRID" Margin="0,0,0,33"/>
                 </Grid>
             </TabItem>
         </TabControl>
