@@ -61,7 +61,7 @@ namespace poselki {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на pr3.
+        ///   Ищет локализованную строку, похожую на DBForApplication.
         /// </summary>
         internal static string DatabaseName {
             get {

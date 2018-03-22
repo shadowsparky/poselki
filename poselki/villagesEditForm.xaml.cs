@@ -18,7 +18,6 @@ namespace poselki
             InitializeComponent();
         }
 
-        // TODO: не работает обновление
         private void Village_Edit_BUTTON_Click(object sender, RoutedEventArgs e)
         {
             bool error = false;
@@ -34,17 +33,17 @@ namespace poselki
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 error = true;
             }
             if (!error)
-                MessageBox.Show("Запись отредактирована.");
+                MessageBox.Show("Запись отредактирована.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillages();
         }
         private void Village_Add_BUTTON_Click(object sender, RoutedEventArgs e)
         {
             bool error = false;
-            var AddCommand = new MySqlCommand("select villagesstoredproc_INSERT(@Village_Number_IN, @Village_Name_IN, @Village_Area_IN, @Residents_Count_IN, @Developer_Number_IN)", Connection);
+            var AddCommand = new MySqlCommand("select villagesstoredfunc_INSERT(@Village_Number_IN, @Village_Name_IN, @Village_Area_IN, @Residents_Count_IN, @Developer_Number_IN)", Connection);
             AddCommand.Parameters.AddWithValue("@Village_Number_IN", Village_Number_TB.Text);
             AddCommand.Parameters.AddWithValue("@Village_Name_IN", Village_Name_TB.Text);
             AddCommand.Parameters.AddWithValue("@Village_Area_IN", Village_Area_TB.Text);
@@ -56,11 +55,11 @@ namespace poselki
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 error = true;
             }
             if (!error)
-                MessageBox.Show("Запись добавлена.");
+                MessageBox.Show("Запись добавлена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillages();
         }
         private void Village_Developer_Number_Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -74,11 +73,11 @@ namespace poselki
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 error = true;
             }
             if (!error)
-                MessageBox.Show("Запись добавлена.");
+                MessageBox.Show("Запись добавлена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillages();
         }
     } 

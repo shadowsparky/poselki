@@ -44,11 +44,10 @@ namespace poselki
                 error = true;
             }
             if (!error)
-                MessageBox.Show("Дом добавлен");
+                MessageBox.Show("Дом добавлен", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillageHouses();
             _WF.UpdateHouseTypes();
         }
-        // TODO: Не работает обновление. 
         private void villagehouses_Edit_BUTTON_Click(object sender, RoutedEventArgs e)
         {
             bool error = false;
@@ -70,7 +69,7 @@ namespace poselki
                 error = true;
             }
             if (!error)
-                MessageBox.Show("Дом отредактирован");
+                MessageBox.Show("Дом отредактирован", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillageHouses();
             _WF.UpdateHouseTypes();
         }
@@ -89,7 +88,7 @@ namespace poselki
                 error = true;
             }
             if (!error)
-                MessageBox.Show("Дом удален");
+                MessageBox.Show("Дом удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillageHouses();
         }
     }

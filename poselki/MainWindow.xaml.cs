@@ -30,7 +30,7 @@ namespace poselki
                 _connection.Open();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

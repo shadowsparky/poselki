@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Windows;
 
@@ -12,79 +13,121 @@ namespace poselki
         {
             InitializeComponent();
         }
-        // TODO: не работает смена названий шапки
-        public void UpdateDevelopers()
+
+        public bool UpdateDevelopers()
         {
-            MySqlDataAdapter ad = new MySqlDataAdapter();
-            ad.SelectCommand = new MySqlCommand("call developerstoredproc_SELECT", Connection);
-            DataTable table = new DataTable();
-            ad.Fill(table);
-            testos.ItemsSource = table.DefaultView;
-            //Villages_Grid_Table.Columns[1].Header = "Номер девелопера";
-            //Villages_Grid_Table.Columns[1].Header = "Название девелопера";
-            //Villages_Grid_Table.Columns[2].Header = "Годовой доход";
-            //Villages_Grid_Table.Columns[3].Header = "Номер типа компании";
-            //Villages_Grid_Table.Columns[4].Header = "Улица";
-            //Villages_Grid_Table.Columns[5].Header = "Номер дома";
+            try
+            {
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call developerstoredproc_SELECT", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                table.Columns[0].ColumnName = "Номер девелопера";
+                testos.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public void UpdateVillages()
+        public bool UpdateVillages()
         {
-            MySqlDataAdapter ad = new MySqlDataAdapter();
-            ad.SelectCommand = new MySqlCommand("call villagesstoredproc_SELECT", Connection);
-            DataTable table = new DataTable();
-            ad.Fill(table);
-            //Villages_Grid_Table.ItemsSource = table.DefaultView;
-            //Villages_Grid_Table.Columns[0].Header = "Номер поселка";
-            //Villages_Grid_Table.Columns[1].Header = "Название поселка";
-            //Villages_Grid_Table.Columns[2].Header = "Площадь поселка";
-            //Villages_Grid_Table.Columns[3].Header = "Количество жителей";
-            //Villages_Grid_Table.Columns[4].Header = "Номер девелопера";
+            try
+            { 
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call villagesstoredproc_SELECT", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                Villages_Grid_Table.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public void UpdateVillageHouses()
+        public bool UpdateVillageHouses()
         {
-            MySqlDataAdapter ad = new MySqlDataAdapter();
-            ad.SelectCommand = new MySqlCommand("call villagehousesstoredproc_SELECT", Connection);
-            DataTable table = new DataTable();
-            ad.Fill(table);
-            VillageHouses_Grid_Table.ItemsSource = table.DefaultView;
+            try
+            {
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call villagehousesstoredproc_SELECT", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                VillageHouses_Grid_Table.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public void UpdateHouseTypes()
+        public bool UpdateHouseTypes()
         {
-            MySqlDataAdapter ad = new MySqlDataAdapter();
-            ad.SelectCommand = new MySqlCommand("call housetypesstoredproc_SELECT", Connection);
-            DataTable table = new DataTable();
-            ad.Fill(table);
-            House_Types_DataGRID.ItemsSource = table.DefaultView;
+            try
+            {
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call housetypesstoredproc_SELECT", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                House_Types_DataGRID.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public void UpdateCompanyTypes()
+        public bool UpdateCompanyTypes()
         {
-            MySqlDataAdapter ad = new MySqlDataAdapter();
-            ad.SelectCommand = new MySqlCommand("call companytypesstoredproc_SELECT", Connection);
-            DataTable table = new DataTable();
-            ad.Fill(table);
-            Company_Types_DataGRID.ItemsSource = table.DefaultView;
+            try
+            {
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call companytypesstoredproc_SELECT", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                Company_Types_DataGRID.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public void UpdateAccountList()
+        public bool UpdateAccountList()
         {
-            MySqlDataAdapter ad = new MySqlDataAdapter();
-            ad.SelectCommand = new MySqlCommand("call adminusersstoredproc_SELECT", Connection);
-            DataTable table = new DataTable();
-            ad.Fill(table);
-            AdminAccountsGRID.ItemsSource = table.DefaultView;
+            try
+            {
+                //MySqlDataAdapter ad = new MySqlDataAdapter();
+                //ad.SelectCommand = new MySqlCommand("call adminusersstoredproc_SELECT", Connection);
+                //DataTable table = new DataTable();
+                //ad.Fill(table);
+                //AdminAccountsGRID.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-        public void RefreshAllTables()
+        public bool RefreshAllTables()
         {
-            UpdateDevelopers();
-            UpdateVillages();
-            UpdateVillageHouses();
-            UpdateCompanyTypes();
-            UpdateHouseTypes();
-            UpdateAccountList();
+            bool error = false;
+            if (!UpdateDevelopers()) error = true;
+            if (!UpdateVillages()) error = true;
+            if (!UpdateVillageHouses()) error = true;
+            if (!UpdateHouseTypes()) error = true;
+            if (!UpdateCompanyTypes()) error = true;
+            if (error) return false;
+            else
+                return true;
         }
 
         private void testos_Loaded(object sender, RoutedEventArgs e)
         {
-            RefreshAllTables();
+            if (!RefreshAllTables())
+                MessageBox.Show("При загрузке данных произошла ошибка", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         private void testEditButton_Click(object sender, RoutedEventArgs e)
         {
