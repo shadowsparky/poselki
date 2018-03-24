@@ -13,7 +13,7 @@
         <TabControl>
             <TabItem x:Name="DevTab" Header="Девелоперы" Margin="0" HorizontalAlignment="Left" Width="85" Height="23" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
-                    <DataGrid x:Name="testos" Margin="0,0,0,37" Loaded="testos_Loaded" IsReadOnly="True"/>
+                    <DataGrid x:Name="testos" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,37" Loaded="testos_Loaded" KeyUp="testos_KeyUp" CellEditEnding="testos_CellEditEnding"/>
                     <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34" TabIndex="1"/>
                 </Grid>
             </TabItem>

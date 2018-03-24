@@ -31,11 +31,11 @@ namespace poselki
             try
             {
                 UpToDateCommand.ExecuteScalar();
-                MessageBox.Show("Запись отредактирована", "ОК");
+                MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 error = true;
             }
             if (!error)
@@ -52,11 +52,11 @@ namespace poselki
             try
             { 
                 DelCommand.ExecuteScalar();
-                MessageBox.Show("Запись удалена", "ОК");
+                MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 error = true;
             }
             if (!error)
@@ -75,11 +75,11 @@ namespace poselki
             try
             {
                 AddCommand.ExecuteScalar();
-                MessageBox.Show("Запись добавлена", "OK");
+                MessageBox.Show("Запись добавлена", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка");
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             if (!error)
             {
