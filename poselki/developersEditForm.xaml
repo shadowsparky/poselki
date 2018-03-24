@@ -22,11 +22,11 @@
                 <TextBlock x:Name="Income_Label" HorizontalAlignment="Left" Margin="49,75,0,0" TextWrapping="Wrap" Text="Прибыль" VerticalAlignment="Top"/>
                 <TextBox x:Name="Home_Number_TB" HorizontalAlignment="Left" Height="23" Margin="106,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="4"/>
                 <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="25,124,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="106,183,0,0" VerticalAlignment="Top" Width="169" Click="Developers_Update_Button_Click" TabIndex="8" RenderTransformOrigin="-0.04,0.094" FontSize="12"/>
+                <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="106,183,0,0" VerticalAlignment="Top" Width="169" Click="Developers_Update_Button_Click" TabIndex="7" RenderTransformOrigin="-0.04,0.094" FontSize="12"/>
                 <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="56,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
-                <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="0,183,184,0" VerticalAlignment="Top" Click="Developers_Add_Button_Click" TabIndex="7" HorizontalAlignment="Right" Width="94" FontSize="12"/>
+                <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="0,183,184,0" VerticalAlignment="Top" Click="Developers_Add_Button_Click" TabIndex="6" HorizontalAlignment="Right" Width="94" FontSize="12"/>
                 <Label x:Name="Developers_Company_Type_LAB" Content="Тип компании" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="23"/>
-                <TextBox x:Name="Developers_Company_Type_TB" HorizontalAlignment="Left" Height="23" Margin="106,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169"/>
+                <TextBox x:Name="Developers_Company_Type_TB" HorizontalAlignment="Left" Height="23" Margin="106,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="5"/>
             </Grid>
         </GroupBox>
     </Grid>
