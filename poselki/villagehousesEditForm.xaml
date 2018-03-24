@@ -10,7 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="villagehouses_AddOrEdit_GB" Header="Добавить/редактировать дома" Margin="0" Height="313" VerticalAlignment="Top">
+        <GroupBox x:Name="villagehouses_AddOrEdit_GB" Header="Добавить/редактировать дома" Height="313" VerticalAlignment="Top">
             <Grid Margin="0,0,0,1">
                 <TextBox x:Name="villagehouses_House_ID_TB" HorizontalAlignment="Left" Height="23" Margin="124,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="0"/>
                 <TextBox x:Name="villagehouses_VillageNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="1"/>

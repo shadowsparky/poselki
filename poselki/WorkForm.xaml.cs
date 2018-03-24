@@ -16,6 +16,7 @@ namespace poselki
             InitializeComponent();
         }
 
+        // Обновление данных
         public bool UpdateDevelopers()
         {
             try
@@ -27,7 +28,7 @@ namespace poselki
                 table.Columns[0].ColumnName = "Номер девелопера";
                 table.Columns[1].ColumnName = "Название девелопера";
                 table.Columns[2].ColumnName = "Годовой доход";
-                table.Columns[3].ColumnName = "Номер компании девелопера";
+                table.Columns[3].ColumnName = "Номер типа компании";
                 table.Columns[4].ColumnName = "Улица";
                 table.Columns[5].ColumnName = "Номер улицы";
 
@@ -148,6 +149,7 @@ namespace poselki
                 return true;
         }
 
+        // Разнообразные события
         private void testos_Loaded(object sender, RoutedEventArgs e)
         {
             if (!RefreshAllTables())
@@ -178,7 +180,8 @@ namespace poselki
         {
 
         }
-        // Тестовые рабочие процедуры
+
+        // Удаление
         private void testos_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             var r = e.Key.ToString();
@@ -197,7 +200,7 @@ namespace poselki
                     return;
                 }
                 MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                UpdateDevelopers();
+                RefreshAllTables();
             }
         }
         private void Villages_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -221,7 +224,7 @@ namespace poselki
                 if (!error)
                 {
                     MessageBox.Show("Запись удалена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                    UpdateVillages();
+                    RefreshAllTables();
                 }
             }
         }
@@ -245,15 +248,66 @@ namespace poselki
                 }
                 if (!error)
                 {
-                    MessageBox.Show("Дом удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Error);
-                    UpdateVillageHouses();
+                    MessageBox.Show("Дом удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                    RefreshAllTables();
                 }
             }
         }
-        // Тестовые нерабочие процедуры
+        private void Company_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var r = e.Key.ToString();
+            if (r == "Delete")
+            {
+                var t = (DataRowView)Company_Types_DataGRID.CurrentItem;
+                bool error = false;
+                var DeleteCommand = new MySqlCommand("call companytypesstoredproc_DELETE(@CTN)", Connection);
+                DeleteCommand.Parameters.AddWithValue("@CTN", t[0].ToString());
+                try
+                {
+                    DeleteCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    error = true;
+                }
+                if (!error)
+                {
+                    MessageBox.Show("Данный тип компании удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                    RefreshAllTables();
+                }
+            }
+        }
+        private void House_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var r = e.Key.ToString();
+            if (r == "Delete")
+            {
+                var t = (DataRowView)House_Types_DataGRID.CurrentItem;
+                bool error = false;
+                var DeleteCommand = new MySqlCommand("call housetypesstoredproc_DELETE(@House_ID_IN)", Connection);
+                DeleteCommand.Parameters.AddWithValue("@House_ID_IN", t[0].ToString());
+                try
+                {
+                    DeleteCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    error = true;
+                }
+                if (!error)
+                {
+                    MessageBox.Show("Данный тип дома удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                    RefreshAllTables();
+                }
+            }
+        }
+
+        // TODO: Не работает
+        // Редактирование
         private void testos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         { 
-            //e.EditingElement.SetValue();
             var t = (DataRowView)testos.CurrentItem;
             var UpToDateCommand = new MySqlCommand("call developerstoredproc_UPDATE(@DevNum, @Dev, @AI, @DevCorpNum, @Street, @HN)", Connection);
             try

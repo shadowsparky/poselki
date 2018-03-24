@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
-        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="poselki.MainWindow"
+        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="poselki.MainWindow"
         mc:Ignorable="d"
         Title="Авторизация" Height="364.002" Width="482.333">
 
@@ -15,9 +16,11 @@
                 <GradientStop Color="#FF7F6FE8" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBox x:Name="loginBox" HorizontalAlignment="Center" Margin="0,0,0,50" TextWrapping="Wrap" VerticalAlignment="Center" MaxLength="15" TabIndex="0" Height="25" Width="164" />
+        <materialDesign:PackIcon Kind="Account" VerticalAlignment ="Center" Margin="0,0,160,45" HorizontalAlignment="Center"/>
+        <materialDesign:PackIcon Kind="Key" VerticalAlignment ="Center" Margin="0,5,160,0" HorizontalAlignment="Center"/>
+        <TextBox x:Name="loginBox" HorizontalAlignment="Center" Margin="16,0,0,50" TextWrapping="Wrap" VerticalAlignment="Center" MaxLength="15" TabIndex="0" Height="25" Width="148" />
         <Button x:Name="authButton" Content="Авторизация" HorizontalAlignment="Center" Margin="0,90,0,0" Height="Auto" Click="authButton_Click" TabIndex="2" IsDefault="True" Width="164" VerticalAlignment="Center"/>
-        <TextBlock x:Name="progNameText" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20" Height="58" Width="200" FontFamily="Segoe UI Semilight"/>
-        <PasswordBox x:Name="passBox" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" TabIndex="1" Height="25" Width="164"/>
+        <TextBlock x:Name="progNameText" HorizontalAlignment="Center" Margin="155,50,155,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20" Height="58" Width="164" FontFamily="Segoe UI Semilight" TextAlignment="Center"/>
+        <PasswordBox x:Name="passBox" HorizontalAlignment="Center" Margin="16,0,0,0" VerticalAlignment="Center" TabIndex="1" Height="25" Width="148"/>
     </Grid>
 </Window>

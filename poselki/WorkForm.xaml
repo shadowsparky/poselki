@@ -13,9 +13,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <dragablz:TabablzControl>
-            <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
-            </dragablz:TabablzControl.InterTabController>
             <TabItem x:Name="DevTab" Header="Девелоперы" Margin="0" HorizontalAlignment="Left" Width="85" Height="23" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid x:Name="testos" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" Loaded="testos_Loaded" KeyUp="testos_KeyUp" CellEditEnding="testos_CellEditEnding"/>
@@ -39,12 +36,12 @@
             </TabItem>
             <TabItem x:Name="CompanyTypes_ITEM" Header="Типы компаний" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="Company_Types_DataGRID" Margin="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="False"/>
+                    <DataGrid x:Name="Company_Types_DataGRID" Margin="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="Company_Types_DataGRID_KeyUp"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="House_Types_ITEM" Header="Типы домов" Height="23" Margin="0">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="House_Types_DataGRID" Margin="0" CanUserAddRows="False" CanUserDeleteRows="False"/>
+                    <DataGrid x:Name="House_Types_DataGRID" Margin="0" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="House_Types_DataGRID_KeyUp"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="AdminTAB" Header="Аккаунты" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
