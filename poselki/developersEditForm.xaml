@@ -5,35 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" Height="368" Width="312" ResizeMode="NoResize">
-    <Grid VerticalAlignment="Top" Margin="0,0,-8,-3" Height="340" HorizontalAlignment="Left" Width="312">
+        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" Height="298" Width="298" ResizeMode="NoResize">
+    <Grid VerticalAlignment="Top" Height="270" HorizontalAlignment="Left" Width="302">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="DeleteDevGB" Header="Удаление девелопера" Margin="0,240,0,0" Padding="0,0,0,10" VerticalAlignment="Top" Height="99" HorizontalAlignment="Left" Width="308">
-            <Grid Margin="0,0,-2,0">
-                <TextBlock x:Name="DevNumDel_LABEL" HorizontalAlignment="Left" Margin="10,0,0,33" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Bottom" Height="23"/>
-                <Button x:Name="DelDevButton" Content="Удалить" Margin="10,0,10,1" Click="DelDevButton_Click" TabIndex="10" Height="21" VerticalAlignment="Bottom"/>
-                <TextBox x:Name="DevNumDel_TB" HorizontalAlignment="Left" Margin="108,0,0,36" TextWrapping="Wrap" Width="173" TabIndex="9" Height="23" VerticalAlignment="Bottom"/>
-            </Grid>
-        </GroupBox>
 
-        <GroupBox x:Name="AndEditAddGroupBox" Header="Добавить/редактировать" VerticalAlignment="Top" Height="230" Margin="0,10,0,0">
+        <GroupBox x:Name="AndEditAddGroupBox" Header="Добавить/редактировать" HorizontalAlignment="Left" Width="303" Height="270" VerticalAlignment="Top">
             <Grid>
-                <TextBox x:Name="DevName_TB" HorizontalAlignment="Left" Height="23" Margin="116,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="1"/>
-                <TextBox x:Name="Dev_Income_TB" HorizontalAlignment="Left" Height="23" Margin="116,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="2"/>
-                <TextBox x:Name="Dev_ID_TB" HorizontalAlignment="Left" Height="23" Margin="116,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="0"/>
-                <TextBox x:Name="Village_Street_TB" HorizontalAlignment="Left" Height="23" Margin="116,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="3"/>
-                <TextBlock x:Name="Dev_ID_Labrel" HorizontalAlignment="Left" Margin="31,10,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
-                <TextBlock x:Name="Dev_Name_LABEL" HorizontalAlignment="Left" Margin="19,45,0,0" TextWrapping="Wrap" Text="Имя девелопера" VerticalAlignment="Top"/>
-                <TextBlock x:Name="Income_Label" HorizontalAlignment="Left" Margin="61,73,0,0" TextWrapping="Wrap" Text="Прибыль" VerticalAlignment="Top"/>
-                <TextBox x:Name="Home_Number_TB" HorizontalAlignment="Left" Height="23" Margin="116,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" TabIndex="4"/>
-                <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="37,122,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="196,178,0,0" VerticalAlignment="Top" Width="99" Click="Developers_Update_Button_Click" TabIndex="8"/>
-                <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="68,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
-                <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="9,179,111,0" VerticalAlignment="Top" Click="Developers_Add_Button_Click" TabIndex="7"/>
-                <Label x:Name="Developers_Company_Type_LAB" Content="Тип компании" HorizontalAlignment="Left" Margin="22,148,0,0" VerticalAlignment="Top" Height="23"/>
-                <TextBox x:Name="Developers_Company_Type_TB" HorizontalAlignment="Left" Height="23" Margin="116,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179"/>
+                <TextBox x:Name="DevName_TB" HorizontalAlignment="Left" Height="23" Margin="106,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="1"/>
+                <TextBox x:Name="Dev_Income_TB" HorizontalAlignment="Left" Height="23" Margin="106,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="2"/>
+                <TextBox x:Name="Dev_ID_TB" HorizontalAlignment="Left" Height="23" Margin="106,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="0"/>
+                <TextBox x:Name="Village_Street_TB" HorizontalAlignment="Left" Height="23" Margin="106,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="3"/>
+                <TextBlock x:Name="Dev_ID_Labrel" HorizontalAlignment="Left" Margin="19,12,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
+                <TextBlock x:Name="Dev_Name_LABEL" HorizontalAlignment="Left" Margin="7,47,0,0" TextWrapping="Wrap" Text="Имя девелопера" VerticalAlignment="Top"/>
+                <TextBlock x:Name="Income_Label" HorizontalAlignment="Left" Margin="49,75,0,0" TextWrapping="Wrap" Text="Прибыль" VerticalAlignment="Top"/>
+                <TextBox x:Name="Home_Number_TB" HorizontalAlignment="Left" Height="23" Margin="106,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" TabIndex="4"/>
+                <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="25,124,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Developers_Update_Button" Content="Редактировать" HorizontalAlignment="Left" Margin="106,183,0,0" VerticalAlignment="Top" Width="169" Click="Developers_Update_Button_Click" TabIndex="8" RenderTransformOrigin="-0.04,0.094" FontSize="12"/>
+                <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="56,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
+                <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="0,183,184,0" VerticalAlignment="Top" Click="Developers_Add_Button_Click" TabIndex="7" HorizontalAlignment="Right" Width="94" FontSize="12"/>
+                <Label x:Name="Developers_Company_Type_LAB" Content="Тип компании" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="23"/>
+                <TextBox x:Name="Developers_Company_Type_TB" HorizontalAlignment="Left" Height="23" Margin="106,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169"/>
             </Grid>
         </GroupBox>
     </Grid>

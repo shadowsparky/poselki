@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BespokeFusion;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Windows;
@@ -199,7 +200,56 @@ namespace poselki
                 UpdateDevelopers();
             }
         }
-
+        private void Villages_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var r = e.Key.ToString();
+            if (r == "Delete")
+            {
+                var t = (DataRowView)Villages_Grid_Table.CurrentItem;
+                bool error = false;
+                var DeleteCommand = new MySqlCommand("call villagesstoredproc_DELETE(@Village_Number_IN)", Connection);
+                DeleteCommand.Parameters.AddWithValue("@Village_Number_IN", t[0].ToString());
+                try
+                {
+                    DeleteCommand.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    error = true;
+                }
+                if (!error)
+                {
+                    MessageBox.Show("Запись удалена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                    UpdateVillages();
+                }
+            }
+        }
+        private void VillageHouses_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var r = e.Key.ToString();
+            if (r == "Delete")
+            {
+                var t = (DataRowView)VillageHouses_Grid_Table.CurrentItem;
+                bool error = false;
+                var DeleteCommand = new MySqlCommand("call villagehousesstoredproc_DELETE(@House_ID_IN)", Connection);
+                DeleteCommand.Parameters.AddWithValue("@House_ID_IN", t[0].ToString());
+                try
+                {
+                    DeleteCommand.ExecuteScalar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    error = true;
+                }
+                if (!error)
+                {
+                    MessageBox.Show("Дом удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Error);
+                    UpdateVillageHouses();
+                }
+            }
+        }
         // Тестовые нерабочие процедуры
         private void testos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         { 
@@ -218,6 +268,7 @@ namespace poselki
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
             //UpToDateCommand.Parameters.AddWithValue("@DevNum", Convert.ToInt64(t[0].ToString()));
@@ -238,6 +289,5 @@ namespace poselki
             UpdateDevelopers();
             UpdateCompanyTypes();
         }
-
     }
 }

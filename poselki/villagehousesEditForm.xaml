@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="Редактирование домов" Height="392.333" Width="335" ResizeMode="NoResize">
+        Title="Редактирование домов" Height="344.333" Width="335" ResizeMode="NoResize">
     <Grid Margin="0,0,0,2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="villagehouses_AddOrEdit_GB" Header="Добавить/редактировать дома" Margin="0" Height="256" VerticalAlignment="Top">
+        <GroupBox x:Name="villagehouses_AddOrEdit_GB" Header="Добавить/редактировать дома" Margin="0" Height="313" VerticalAlignment="Top">
             <Grid Margin="0,0,0,1">
                 <TextBox x:Name="villagehouses_House_ID_TB" HorizontalAlignment="Left" Height="23" Margin="124,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="0"/>
                 <TextBox x:Name="villagehouses_VillageNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="1"/>
@@ -27,14 +27,7 @@
                 <Label x:Name="villagehouses_VillageHouseArea_LAB" Content="Площадь дома" HorizontalAlignment="Left" Margin="32,150,0,0" VerticalAlignment="Top" Height="28"/>
                 <Label x:Name="villagehouses_VillageHouseFloorNumber_LAB" Content="Количество этажей" HorizontalAlignment="Left" Margin="8,178,0,0" VerticalAlignment="Top" Height="23"/>
                 <Button x:Name="villagehouses_Add_BUTTON" Content="Добавить" Margin="10,0,193,5" VerticalAlignment="Bottom" Click="villagehouses_Add_BUTTON_Click" TabIndex="6"/>
-                <Button x:Name="villagehouses_Edit_BUTTON" Content="Редактировать" Margin="0,0,10,5" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" HorizontalAlignment="Right" Width="178" Click="villagehouses_Edit_BUTTON_Click" TabIndex="7"/>
-            </Grid>
-        </GroupBox>
-        <GroupBox x:Name="villagehouses_Delete_GB" Header="Удаление дома" HorizontalAlignment="Left" Height="105" VerticalAlignment="Bottom" Width="329">
-            <Grid Margin="0">
-                <Button x:Name="villagehouses_DeleteHouse_BUTTON" Content="Удалить" Margin="10,0,10,10" VerticalAlignment="Bottom" Click="villagehouses_DeleteHouse_BUTTON_Click" TabIndex="9"/>
-                <TextBox x:Name="villagehouses_DeleteHouse_ID_TB" HorizontalAlignment="Left" Height="23" Margin="124,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="8"/>
-                <Label x:Name="villagehouses_DeleteHouse_ID_LAB" Content="Идентификатор дома" HorizontalAlignment="Left" Margin="0,14,0,0" VerticalAlignment="Top" Height="28"/>
+                <Button x:Name="villagehouses_Edit_BUTTON" Content="Редактировать" Margin="0,0,10,5" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="178" Click="villagehouses_Edit_BUTTON_Click" TabIndex="7"/>
             </Grid>
         </GroupBox>
     </Grid>

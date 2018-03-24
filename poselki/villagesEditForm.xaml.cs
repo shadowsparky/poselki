@@ -62,23 +62,5 @@ namespace poselki
                 MessageBox.Show("Запись добавлена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             _WF.UpdateVillages();
         }
-        private void Village_Developer_Number_Delete_Button_Click(object sender, RoutedEventArgs e)
-        {
-            bool error = false;
-            var DeleteCommand = new MySqlCommand("call villagesstoredproc_DELETE(@Village_Number_IN)", Connection);
-            DeleteCommand.Parameters.AddWithValue("@Village_Number_IN", Village_Developer_Number_Delete_TB.Text);
-            try
-            {
-                DeleteCommand.ExecuteScalar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                error = true;
-            }
-            if (!error)
-                MessageBox.Show("Запись добавлена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-            _WF.UpdateVillages();
-        }
     } 
 }

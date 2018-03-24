@@ -44,24 +44,6 @@ namespace poselki
                 _WF.UpdateCompanyTypes();
             }
         }
-        private void DelDevButton_Click(object sender, RoutedEventArgs e)
-        {
-            var error = false;
-            var DelCommand = new MySqlCommand("call developerstoredproc_DELETE(@DevNum)", Connection);
-            DelCommand.Parameters.AddWithValue("@DevNum", DevNumDel_TB.Text);
-            try
-            { 
-                DelCommand.ExecuteScalar();
-                MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                error = true;
-            }
-            if (!error)
-                _WF.UpdateDevelopers();
-        }
         private void Developers_Add_Button_Click(object sender, RoutedEventArgs e)
         {
             var error = false;

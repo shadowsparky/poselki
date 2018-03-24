@@ -73,23 +73,5 @@ namespace poselki
             _WF.UpdateVillageHouses();
             _WF.UpdateHouseTypes();
         }
-        private void villagehouses_DeleteHouse_BUTTON_Click(object sender, RoutedEventArgs e)
-        {
-            bool error = false;
-            var DeleteCommand = new MySqlCommand("call villagehousesstoredproc_DELETE(@House_ID_IN)", Connection);
-            DeleteCommand.Parameters.AddWithValue("@House_ID_IN", villagehouses_DeleteHouse_ID_TB.Text);
-            try
-            {
-                DeleteCommand.ExecuteScalar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                error = true;
-            }
-            if (!error)
-                MessageBox.Show("Дом удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-            _WF.UpdateVillageHouses();
-        }
     }
 }

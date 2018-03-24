@@ -1,32 +1,23 @@
-﻿<Window x:Class="poselki.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
+        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="poselki.MainWindow"
         mc:Ignorable="d"
-        Title="Авторизация" Height="350" Width="525">
+        Title="Авторизация" Height="364.002" Width="482.333">
+
     <Grid x:Name="mainGrid">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF829BF0" Offset="1"/>
-                <GradientStop Color="White"/>
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF7F6FE8" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <TextBox x:Name="loginBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Height="23" Margin="0,0,0,90" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" MaxLength="15" TabIndex="0"/>
-        <Button x:Name="authButton" Grid.ColumnSpan="2" Content="Авторизация" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Center" Width="120" Height="30" Click="authButton_Click" TabIndex="2" IsDefault="True"/>
-        <Grid x:Name="footerGrid" Grid.ColumnSpan="2" Height="30" Margin="0" VerticalAlignment="Bottom">
-            <Grid.Effect>
-                <BlurEffect Radius="2"/>
-            </Grid.Effect>
-            <TextBlock x:Name="copy" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="AVB INC. 2018(C)" VerticalAlignment="Center"/>
-        </Grid>
-        <TextBlock x:Name="progNameText" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20"/>
-        <PasswordBox x:Name="passBox" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Center" Width="120" Height="20" TabIndex="1"/>
-
+        <TextBox x:Name="loginBox" HorizontalAlignment="Center" Margin="0,0,0,50" TextWrapping="Wrap" VerticalAlignment="Center" MaxLength="15" TabIndex="0" Height="25" Width="164" />
+        <Button x:Name="authButton" Content="Авторизация" HorizontalAlignment="Center" Margin="0,90,0,0" Height="Auto" Click="authButton_Click" TabIndex="2" IsDefault="True" Width="164" VerticalAlignment="Center"/>
+        <TextBlock x:Name="progNameText" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20" Height="58" Width="200" FontFamily="Segoe UI Semilight"/>
+        <PasswordBox x:Name="passBox" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" TabIndex="1" Height="25" Width="164"/>
     </Grid>
 </Window>
