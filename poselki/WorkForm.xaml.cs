@@ -180,6 +180,24 @@ namespace poselki
         {
 
         }
+        /*Шаблон удаления*/
+        private void MagicUniversalDeletingFromTable(string QueryString, DataGrid DG)
+        {
+            var t = (DataRowView)DG.CurrentItem;
+            var DelCommand = new MySqlCommand(QueryString, Connection);
+            DelCommand.Parameters.AddWithValue("Num", t[0].ToString());
+            try
+            {
+                DelCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+            RefreshAllTables();
+        }
 
         // Удаление
         private void testos_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -187,20 +205,7 @@ namespace poselki
             var r = e.Key.ToString();
             if (r == "Delete")
             {
-                var t = (DataRowView)testos.CurrentItem;
-                var DelCommand = new MySqlCommand("call developerstoredproc_DELETE(@DevNum)", Connection);
-                DelCommand.Parameters.AddWithValue("DevNum", t[0].ToString());
-                try
-                {
-                    DelCommand.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                RefreshAllTables();
+                MagicUniversalDeletingFromTable("call developerstoredproc_DELETE(@Num)", testos);
             }
         }
         private void Villages_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -208,24 +213,7 @@ namespace poselki
             var r = e.Key.ToString();
             if (r == "Delete")
             {
-                var t = (DataRowView)Villages_Grid_Table.CurrentItem;
-                bool error = false;
-                var DeleteCommand = new MySqlCommand("call villagesstoredproc_DELETE(@Village_Number_IN)", Connection);
-                DeleteCommand.Parameters.AddWithValue("@Village_Number_IN", t[0].ToString());
-                try
-                {
-                    DeleteCommand.ExecuteScalar();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    error = true;
-                }
-                if (!error)
-                {
-                    MessageBox.Show("Запись удалена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                    RefreshAllTables();
-                }
+                MagicUniversalDeletingFromTable("call villagesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
             }
         }
         private void VillageHouses_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -233,24 +221,7 @@ namespace poselki
             var r = e.Key.ToString();
             if (r == "Delete")
             {
-                var t = (DataRowView)VillageHouses_Grid_Table.CurrentItem;
-                bool error = false;
-                var DeleteCommand = new MySqlCommand("call villagehousesstoredproc_DELETE(@House_ID_IN)", Connection);
-                DeleteCommand.Parameters.AddWithValue("@House_ID_IN", t[0].ToString());
-                try
-                {
-                    DeleteCommand.ExecuteScalar();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    error = true;
-                }
-                if (!error)
-                {
-                    MessageBox.Show("Дом удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                    RefreshAllTables();
-                }
+                MagicUniversalDeletingFromTable("call villagehousesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
             }
         }
         private void Company_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -258,24 +229,7 @@ namespace poselki
             var r = e.Key.ToString();
             if (r == "Delete")
             {
-                var t = (DataRowView)Company_Types_DataGRID.CurrentItem;
-                bool error = false;
-                var DeleteCommand = new MySqlCommand("call companytypesstoredproc_DELETE(@CTN)", Connection);
-                DeleteCommand.Parameters.AddWithValue("@CTN", t[0].ToString());
-                try
-                {
-                    DeleteCommand.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    error = true;
-                }
-                if (!error)
-                {
-                    MessageBox.Show("Данный тип компании удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                    RefreshAllTables();
-                }
+                MagicUniversalDeletingFromTable("call companytypesstoredproc_DELETE(@Num)", Company_Types_DataGRID);
             }
         }
         private void House_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
@@ -283,31 +237,14 @@ namespace poselki
             var r = e.Key.ToString();
             if (r == "Delete")
             {
-                var t = (DataRowView)House_Types_DataGRID.CurrentItem;
-                bool error = false;
-                var DeleteCommand = new MySqlCommand("call housetypesstoredproc_DELETE(@House_ID_IN)", Connection);
-                DeleteCommand.Parameters.AddWithValue("@House_ID_IN", t[0].ToString());
-                try
-                {
-                    DeleteCommand.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    error = true;
-                }
-                if (!error)
-                {
-                    MessageBox.Show("Данный тип дома удален", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                    RefreshAllTables();
-                }
+                MagicUniversalDeletingFromTable("call housetypesstoredproc_DELETE(@Num)", House_Types_DataGRID);
             }
         }
 
-        // TODO: Не работает
+        // TODO: Не работает + связывание кнопок для адаптивного дизайна.
         // Редактирование
         private void testos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        { 
+        {
             var t = (DataRowView)testos.CurrentItem;
             var UpToDateCommand = new MySqlCommand("call developerstoredproc_UPDATE(@DevNum, @Dev, @AI, @DevCorpNum, @Street, @HN)", Connection);
             try
@@ -318,7 +255,7 @@ namespace poselki
                 UpToDateCommand.Parameters.AddWithValue("@AI", t[3].ToString());
                 UpToDateCommand.Parameters.AddWithValue("@Street", t[4].ToString());
                 UpToDateCommand.Parameters.AddWithValue("@HN", t[5].ToString());
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -333,7 +270,7 @@ namespace poselki
             //UpToDateCommand.Parameters.AddWithValue("@HN", Convert.ToInt64(t[5].ToString()));
             try
             {
-                UpToDateCommand.ExecuteScalar();
+                UpToDateCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {

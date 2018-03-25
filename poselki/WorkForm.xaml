@@ -14,13 +14,13 @@
         </Grid.ColumnDefinitions>
         <dragablz:TabablzControl>
             <TabItem x:Name="DevTab" Header="Девелоперы" Margin="0" HorizontalAlignment="Left" Width="85" Height="23" VerticalAlignment="Bottom">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <DataGrid x:Name="testos" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" Loaded="testos_Loaded" KeyUp="testos_KeyUp" CellEditEnding="testos_CellEditEnding"/>
-                    <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34" TabIndex="1" Background="#FF3F51B5"/>
+                    <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34" TabIndex="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="VillagesTab" Header="Поселки" Margin="0" Height="23" VerticalAlignment="Top">
-                <Grid Background="#FFE5E5E5">
+                <Grid>
                     <DataGrid x:Name="Villages_Grid_Table" CanUserAddRows="False" CanUserDeleteRows="False" Loaded="testos_Loaded" Margin="0,0,0,37" KeyUp="Villages_Grid_Table_KeyUp"/>
                     <Button x:Name="Villages_Edit_Button" Content="Редактировать поселки" VerticalAlignment="Bottom" Height="34" Click="Villages_Edit_Button_Click" IsDefault="True"/>
                 </Grid>
