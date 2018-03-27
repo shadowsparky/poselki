@@ -1,5 +1,4 @@
-﻿using BespokeFusion;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Windows;
@@ -10,6 +9,7 @@ namespace poselki
     public partial class WorkForm : Window
     {
         public MySqlConnection Connection { set; get; }
+        private DataRowView BestCurrentItem;
 
         public WorkForm()
         {
@@ -149,7 +149,7 @@ namespace poselki
                 return true;
         }
 
-        // Разнообразные события
+        // Разнообразные 
         private void testos_Loaded(object sender, RoutedEventArgs e)
         {
             if (!RefreshAllTables())
@@ -180,12 +180,13 @@ namespace poselki
         {
 
         }
-        /*Шаблон удаления*/
+
+        /*Шаблоны*/
         private void MagicUniversalDeletingFromTable(string QueryString, DataGrid DG)
         {
             var t = (DataRowView)DG.CurrentItem;
             var DelCommand = new MySqlCommand(QueryString, Connection);
-            DelCommand.Parameters.AddWithValue("Num", t[0].ToString());
+            DelCommand.Parameters.AddWithValue("Num", t[0]);
             try
             {
                 DelCommand.ExecuteNonQuery();
@@ -198,76 +199,24 @@ namespace poselki
             MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             RefreshAllTables();
         }
-
-        // Удаление
-        private void testos_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        private void MagicUniversalEditingFromTable(string QueryString, string[] DataArgs)
         {
-            var r = e.Key.ToString();
-            if (r == "Delete")
+            QueryString += "(";
+            string[] ParameterArg = new string[DataArgs.Length];
+            for (int i = 0; i < DataArgs.Length; i++)
             {
-                MagicUniversalDeletingFromTable("call developerstoredproc_DELETE(@Num)", testos);
+                if (i != DataArgs.Length - 1)
+                    QueryString += "@ARG" + i + ", ";
+                else
+                    QueryString += "@ARG" + i;
+                ParameterArg[i] = "@ARG" + i;
             }
-        }
-        private void Villages_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            var r = e.Key.ToString();
-            if (r == "Delete")
+            QueryString += ")";
+            var UpToDateCommand = new MySqlCommand(QueryString, Connection);
+            for (int i = 0; i < DataArgs.Length; i++)
             {
-                MagicUniversalDeletingFromTable("call villagesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
+                UpToDateCommand.Parameters.AddWithValue(ParameterArg[i], DataArgs[i]);
             }
-        }
-        private void VillageHouses_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            var r = e.Key.ToString();
-            if (r == "Delete")
-            {
-                MagicUniversalDeletingFromTable("call villagehousesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
-            }
-        }
-        private void Company_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            var r = e.Key.ToString();
-            if (r == "Delete")
-            {
-                MagicUniversalDeletingFromTable("call companytypesstoredproc_DELETE(@Num)", Company_Types_DataGRID);
-            }
-        }
-        private void House_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            var r = e.Key.ToString();
-            if (r == "Delete")
-            {
-                MagicUniversalDeletingFromTable("call housetypesstoredproc_DELETE(@Num)", House_Types_DataGRID);
-            }
-        }
-
-        // TODO: Не работает + связывание кнопок для адаптивного дизайна.
-        // Редактирование
-        private void testos_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            var t = (DataRowView)testos.CurrentItem;
-            var UpToDateCommand = new MySqlCommand("call developerstoredproc_UPDATE(@DevNum, @Dev, @AI, @DevCorpNum, @Street, @HN)", Connection);
-            try
-            {
-                UpToDateCommand.Parameters.AddWithValue("@DevNum", t[0].ToString());
-                UpToDateCommand.Parameters.AddWithValue("@Dev", t[1].ToString());
-                UpToDateCommand.Parameters.AddWithValue("@DevCorpNum", t[2].ToString());
-                UpToDateCommand.Parameters.AddWithValue("@AI", t[3].ToString());
-                UpToDateCommand.Parameters.AddWithValue("@Street", t[4].ToString());
-                UpToDateCommand.Parameters.AddWithValue("@HN", t[5].ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            //UpToDateCommand.Parameters.AddWithValue("@DevNum", Convert.ToInt64(t[0].ToString()));
-            //UpToDateCommand.Parameters.AddWithValue("@Dev", t[1].ToString());
-            //UpToDateCommand.Parameters.AddWithValue("@DevCorpNum", Convert.ToInt64(t[2].ToString()));
-            //UpToDateCommand.Parameters.AddWithValue("@AI", Convert.ToInt64(t[3].ToString()));
-            //UpToDateCommand.Parameters.AddWithValue("@Street", t[4].ToString());
-            //UpToDateCommand.Parameters.AddWithValue("@HN", Convert.ToInt64(t[5].ToString()));
             try
             {
                 UpToDateCommand.ExecuteNonQuery();
@@ -277,8 +226,167 @@ namespace poselki
                 MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            UpdateDevelopers();
-            UpdateCompanyTypes();
+            RefreshAllTables();
+            MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+            BestCurrentItem = null;
+        }
+
+        // Удаление + редактирование
+        private void testos_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            { 
+            var r = e.Key.ToString();
+                if (r == "Delete")
+                {
+                    MagicUniversalDeletingFromTable("call developerstoredproc_DELETE(@Num)", testos);
+                }
+                else if (r == "Return")
+                {
+                    var t = BestCurrentItem;
+                    string[] args = new string[t.Row.ItemArray.Length];
+                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                        args[i] = t.Row.ItemArray[i].ToString();
+                    MagicUniversalEditingFromTable("call developerstoredproc_UPDATE", args);
+                }
+                else if (r == "Escape")
+                {
+                    RefreshAllTables();
+                }
+            }
+            catch (Exception)
+            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+        private void Villages_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            { 
+            var r = e.Key.ToString();
+                if (r == "Delete")
+                {
+                    MagicUniversalDeletingFromTable("call villagesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
+                }
+                else if (r == "Return")
+                {
+                    var t = BestCurrentItem;
+                    string[] args = new string[t.Row.ItemArray.Length];
+                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                        args[i] = t.Row.ItemArray[i].ToString();
+                    MagicUniversalEditingFromTable("call villagesstoredproc_UPDATE", args);
+                }
+                else if (r == "Escape")
+                {
+                    RefreshAllTables();
+                }
+            }
+            catch (Exception)
+            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+        private void VillageHouses_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            { 
+            var r = e.Key.ToString();
+                if (r == "Delete")
+                {
+                    MagicUniversalDeletingFromTable("call villagehousesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
+                }
+                else if (r == "Return")
+                {
+                    var t = BestCurrentItem;
+                    string[] args = new string[t.Row.ItemArray.Length];
+                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                        args[i] = t.Row.ItemArray[i].ToString();
+                    MagicUniversalEditingFromTable("call villagehousesstoredproc_UPDATE", args);
+                }
+                else if (r == "Escape")
+                {
+                    RefreshAllTables();
+                }
+            }
+            catch (Exception)
+            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+        private void Company_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            {
+                var r = e.Key.ToString();
+                if (r == "Delete")
+                {
+                    MagicUniversalDeletingFromTable("call companytypesstoredproc_DELETE(@Num)", Company_Types_DataGRID);
+                }
+                else if (r == "Return")
+                {
+                    var t = BestCurrentItem;
+                    string[] args = new string[t.Row.ItemArray.Length];
+                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                        args[i] = t.Row.ItemArray[i].ToString();
+                    MagicUniversalEditingFromTable("call companytypesproc_UPDATE", args);
+                }
+                else if (r == "Escape")
+                {
+                    RefreshAllTables();
+                }
+            }
+            catch (Exception)
+            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+        private void House_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            {
+                var r = e.Key.ToString();
+                if (r == "Delete")
+                {
+                    MagicUniversalDeletingFromTable("call housetypesstoredproc_DELETE(@Num)", House_Types_DataGRID);
+                }
+                else if (r == "Return")
+                {
+                    var t = BestCurrentItem;
+                    string[] args = new string[t.Row.ItemArray.Length];
+                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                        args[i] = t.Row.ItemArray[i].ToString();
+                    MagicUniversalEditingFromTable("call housetypesproc_UPDATE", args);
+                }
+                else if (r == "Escape")
+                {
+                    RefreshAllTables();
+                }
+            } 
+            catch(Exception)
+            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+
+        // Костыли, которые не нужны в паскале
+        private void VillageHouses_Grid_Table_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            try
+            {
+                BestCurrentItem = (DataRowView)VillageHouses_Grid_Table.CurrentItem;
+            }   
+            catch (Exception)
+            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+        }
+        private void Company_Types_DataGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            BestCurrentItem = (DataRowView)Company_Types_DataGRID.CurrentItem;
+        }
+        private void House_Types_DataGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            BestCurrentItem = (DataRowView)House_Types_DataGRID.CurrentItem;
+        }
+        private void AdminAccountsGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            BestCurrentItem = (DataRowView)AdminAccountsGRID.CurrentItem;
+        }
+        private void testos_CellEditEnding_1(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            BestCurrentItem = (DataRowView)testos.CurrentItem;
+        }
+        private void Villages_Grid_Table_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            BestCurrentItem = (DataRowView)Villages_Grid_Table.CurrentItem;
         }
     }
 }

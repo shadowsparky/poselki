@@ -5,29 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="Редактирование домов" Height="344.333" Width="335" ResizeMode="NoResize">
+        Title="Редактирование домов" Height="344.333" Width="335" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="villagehouses_AddOrEdit_GB" Header="Добавить/редактировать дома" Height="313" VerticalAlignment="Top">
+        <GroupBox x:Name="villagehouses_AddOrEdit_GB" Header="Добавить дома" Height="313" VerticalAlignment="Top">
             <Grid Margin="0,0,0,0">
-                <TextBox x:Name="villagehouses_House_ID_TB" HorizontalAlignment="Left" Height="23" Margin="124,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="0"/>
-                <TextBox x:Name="villagehouses_VillageNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="1"/>
-                <TextBox x:Name="villagehouses_Street_TB" HorizontalAlignment="Left" Height="23" Margin="124,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="2"/>
-                <TextBox x:Name="villagehouses_VillageHouseNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="3"/>
-                <TextBox x:Name="villagehouses_VillageHouseType_TB" HorizontalAlignment="Left" Height="23" Margin="124,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="4"/>
-                <TextBox x:Name="villagehouses_VillageHouseArea_TB" HorizontalAlignment="Left" Height="23" Margin="124,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="5"/>
-                <TextBox x:Name="villagehouses_VillageHouseFloorNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="183" TabIndex="6"/>
+                <TextBox x:Name="villagehouses_House_ID_TB" HorizontalAlignment="Left" Height="23" Margin="124,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="0"/>
+                <TextBox x:Name="villagehouses_VillageNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="1"/>
+                <TextBox x:Name="villagehouses_Street_TB" HorizontalAlignment="Left" Height="23" Margin="124,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="2"/>
+                <TextBox x:Name="villagehouses_VillageHouseNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="3"/>
+                <TextBox x:Name="villagehouses_VillageHouseType_TB" HorizontalAlignment="Left" Height="23" Margin="124,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="4"/>
+                <TextBox x:Name="villagehouses_VillageHouseArea_TB" HorizontalAlignment="Left" Height="23" Margin="124,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="5"/>
+                <TextBox x:Name="villagehouses_VillageHouseFloorNumber_TB" HorizontalAlignment="Left" Height="23" Margin="124,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="177" TabIndex="6"/>
                 <Label x:Name="villagehouses_House_ID_LAB" Content="Идентификатор дома" HorizontalAlignment="Left" Margin="0,7,0,0" VerticalAlignment="Top" Height="28"/>
-                <Label x:Name="villagehouses_VillageNumber_LAB" Content="Номер поселка" HorizontalAlignment="Left" Margin="29,38,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label x:Name="villagehouses_VillageNumber_LAB" Content="Номер поселка" HorizontalAlignment="Left" Margin="29,33,0,0" VerticalAlignment="Top" Height="28"/>
                 <Label x:Name="villagehouses_Street_LAB" Content="Название улицы" HorizontalAlignment="Left" Margin="23,66,0,0" VerticalAlignment="Top" Height="28"/>
                 <Label x:Name="villagehouses_VillageHouseNumber_LAB" Content="Номер дома" HorizontalAlignment="Left" Margin="45,94,0,0" VerticalAlignment="Top" Height="28"/>
                 <Label x:Name="villagehouses_VillageHouseType_LAB" Content="Тип дома" HorizontalAlignment="Left" Margin="62,122,0,0" VerticalAlignment="Top" Height="28"/>
                 <Label x:Name="villagehouses_VillageHouseArea_LAB" Content="Площадь дома" HorizontalAlignment="Left" Margin="32,150,0,0" VerticalAlignment="Top" Height="28"/>
                 <Label x:Name="villagehouses_VillageHouseFloorNumber_LAB" Content="Количество этажей" HorizontalAlignment="Left" Margin="8,178,0,0" VerticalAlignment="Top" Height="23"/>
-                <Button x:Name="villagehouses_Add_BUTTON" Content="Добавить" Margin="10,0,193,5" VerticalAlignment="Bottom" Click="villagehouses_Add_BUTTON_Click" TabIndex="7"/>
-                <Button x:Name="villagehouses_Edit_BUTTON" Content="Редактировать" Margin="0,0,10,5" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="178" Click="villagehouses_Edit_BUTTON_Click" TabIndex="8"/>
+                <Button x:Name="villagehouses_Add_BUTTON" Content="Добавить" Margin="10,0,10,10" VerticalAlignment="Bottom" Click="villagehouses_Add_BUTTON_Click" TabIndex="7"/>
             </Grid>
         </GroupBox>
     </Grid>

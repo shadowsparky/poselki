@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:poselki"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         mc:Ignorable="d"
-        Title="Работа с таблицами" Height="476.027" Width="536.973">
+        Title="Работа с таблицами" Height="476.027" WindowStartupLocation="CenterScreen" Width="536.973">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,13 +14,13 @@
         <dragablz:TabablzControl>
             <TabItem x:Name="DevTab" Header="Девелоперы" Margin="0" HorizontalAlignment="Left" Width="85" Height="23" VerticalAlignment="Bottom">
                 <Grid>
-                    <DataGrid x:Name="testos" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" Loaded="testos_Loaded" KeyUp="testos_KeyUp" CellEditEnding="testos_CellEditEnding"/>
+                    <DataGrid x:Name="testos" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" Loaded="testos_Loaded" KeyUp="testos_KeyUp" CellEditEnding="testos_CellEditEnding_1"/>
                     <Button x:Name="testEditButton" Content="Редактировать таблицу" VerticalAlignment="Bottom" Click="testEditButton_Click" Height="34" TabIndex="1"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="VillagesTab" Header="Поселки" Margin="0" Height="23" VerticalAlignment="Top">
                 <Grid>
-                    <DataGrid x:Name="Villages_Grid_Table" CanUserAddRows="False" CanUserDeleteRows="False" Loaded="testos_Loaded" Margin="0,0,0,37" KeyUp="Villages_Grid_Table_KeyUp"/>
+                    <DataGrid x:Name="Villages_Grid_Table" CanUserAddRows="False" CanUserDeleteRows="False" Loaded="testos_Loaded" Margin="0,0,0,37" KeyUp="Villages_Grid_Table_KeyUp" CellEditEnding="Villages_Grid_Table_CellEditEnding"/>
                     <Button x:Name="Villages_Edit_Button" Content="Редактировать поселки" VerticalAlignment="Bottom" Height="34" Click="Villages_Edit_Button_Click" IsDefault="True"/>
                 </Grid>
             </TabItem>
@@ -30,24 +29,24 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="VillageHouses_Grid_Table" Margin="0,0,0,37" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="VillageHouses_Grid_Table_KeyUp"/>
+                    <DataGrid x:Name="VillageHouses_Grid_Table" Margin="0,0,0,37" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="VillageHouses_Grid_Table_KeyUp" CellEditEnding="VillageHouses_Grid_Table_CellEditEnding"/>
                     <Button x:Name="VillageHouses_Edit_Button" Content="Редактирование домов" Margin="0" VerticalAlignment="Bottom" Height="36" IsDefault="True" Click="VillageHouses_Edit_Button_Click"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="CompanyTypes_ITEM" Header="Типы компаний" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="Company_Types_DataGRID" Margin="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="Company_Types_DataGRID_KeyUp"/>
+                    <DataGrid x:Name="Company_Types_DataGRID" Margin="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="Company_Types_DataGRID_KeyUp" CellEditEnding="Company_Types_DataGRID_CellEditEnding"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="House_Types_ITEM" Header="Типы домов" Height="23" Margin="0">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="House_Types_DataGRID" Margin="0" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="House_Types_DataGRID_KeyUp"/>
+                    <DataGrid x:Name="House_Types_DataGRID" Margin="0" CanUserAddRows="False" CanUserDeleteRows="False" KeyUp="House_Types_DataGRID_KeyUp" CellEditEnding="House_Types_DataGRID_CellEditEnding"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="AdminTAB" Header="Аккаунты" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="ADMIN_EditUsersBUTTON" Content="Редактировать пользователей" VerticalAlignment="Bottom" Height="34" IsDefault="True" Click="ADMIN_EditUsersBUTTON_Click"/>
-                    <DataGrid x:Name="AdminAccountsGRID" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36"/>
+                    <DataGrid x:Name="AdminAccountsGRID" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" CellEditEnding="AdminAccountsGRID_CellEditEnding"/>
                 </Grid>
             </TabItem>
         </dragablz:TabablzControl>
