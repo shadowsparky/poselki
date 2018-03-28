@@ -26,7 +26,7 @@ namespace poselki
         {
             string[] dataArgs = { villagehouses_House_ID_TB.Text, villagehouses_VillageNumber_TB.Text, villagehouses_Street_TB.Text, villagehouses_VillageHouseNumber_TB.Text,
                 villagehouses_VillageHouseType_TB.Text, villagehouses_VillageHouseArea_TB.Text, villagehouses_VillageHouseFloorNumber_TB.Text };
-            _WF.MagicUniversalAddToTable("select villagehousesstoredfunc_INSERT", dataArgs);
+            _WF.MagicUniversalControlData("select villagehousesstoredfunc_INSERT", dataArgs, "Add");
         }
     }
 }

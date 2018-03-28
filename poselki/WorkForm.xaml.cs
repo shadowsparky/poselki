@@ -181,95 +181,70 @@ namespace poselki
 
         }
 
-        /*Шаблоны*/
-        private void MagicUniversalDeletingFromTable(string QueryString, DataGrid DG)
+        /*Шаблон*/
+        public void MagicUniversalControlData(string QueryString, string[] DataArgs, string userControl)
         {
-            var t = (DataRowView)DG.CurrentItem;
-            var DelCommand = new MySqlCommand(QueryString, Connection);
-            DelCommand.Parameters.AddWithValue("Num", t[0]);
-            try
+            if (userControl != "Delete")
             {
-                DelCommand.ExecuteNonQuery();
+                QueryString += "(";
+                string[] ParameterArg = new string[DataArgs.Length];
+                for (int i = 0; i < DataArgs.Length; i++)
+                {
+                    if (i != DataArgs.Length - 1)
+                        QueryString += "@ARG" + i + ", ";
+                    else
+                        QueryString += "@ARG" + i;
+                    ParameterArg[i] = "@ARG" + i;
+                }
+                QueryString += ")";
+                var BestCommand = new MySqlCommand(QueryString, Connection);
+                for (int i = 0; i < DataArgs.Length; i++)
+                {
+                    BestCommand.Parameters.AddWithValue(ParameterArg[i], DataArgs[i]);
+                }
+                try
+                {
+                    BestCommand.ExecuteNonQuery();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                RefreshAllTables();
+                if (userControl == "Add")
+                    MessageBox.Show("Запись добавлена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                else MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            catch (MySqlException ex)
+            else
             {
-                MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                var DelCommand = new MySqlCommand(QueryString, Connection);
+                DelCommand.Parameters.AddWithValue("Num", DataArgs[0]);
+                try
+                {
+                    DelCommand.ExecuteNonQuery();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefreshAllTables();
             }
-            MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-            RefreshAllTables();
-        }
-        private void MagicUniversalEditingFromTable(string QueryString, string[] DataArgs)
-        {
-            QueryString += "(";
-            string[] ParameterArg = new string[DataArgs.Length];
-            for (int i = 0; i < DataArgs.Length; i++)
-            {
-                if (i != DataArgs.Length - 1)
-                    QueryString += "@ARG" + i + ", ";
-                else
-                    QueryString += "@ARG" + i;
-                ParameterArg[i] = "@ARG" + i;
-            }
-            QueryString += ")";
-            var UpToDateCommand = new MySqlCommand(QueryString, Connection);
-            for (int i = 0; i < DataArgs.Length; i++)
-            {
-                UpToDateCommand.Parameters.AddWithValue(ParameterArg[i], DataArgs[i]);
-            }
-            try
-            {
-                UpToDateCommand.ExecuteNonQuery();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            RefreshAllTables();
-            MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-            BestCurrentItem = null;
-        }
-        public void MagicUniversalAddToTable(string QueryString, string[] DataArgs)
-        {
-            QueryString += "(";
-            string[] ParameterArg = new string[DataArgs.Length];
-            for (int i = 0; i < DataArgs.Length; i++)
-            {
-                if (i != DataArgs.Length - 1)
-                    QueryString += "@ARG" + i + ", ";
-                else
-                    QueryString += "@ARG" + i;
-                ParameterArg[i] = "@ARG" + i;
-            }
-            QueryString += ")";
-            var AddCommand = new MySqlCommand(QueryString, Connection);
-            for (int i = 0; i < DataArgs.Length; i++)
-            {
-                AddCommand.Parameters.AddWithValue(ParameterArg[i], DataArgs[i]);
-            }
-            try
-            {
-                AddCommand.ExecuteNonQuery();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            RefreshAllTables();
-            MessageBox.Show("Запись добавлена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // Удаление + редактирование
         private void testos_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             try
-            { 
+            {
                 var r = e.Key.ToString();
                 if (r == "Delete")
                 {
-                    MagicUniversalDeletingFromTable("call developerstoredproc_DELETE(@Num)", testos);
+                    var t = (DataRowView)testos.CurrentItem;
+                    string[] args = { t[0].ToString() };
+                    MagicUniversalControlData("call developerstoredproc_DELETE(@Num)", args, "Delete");
                 }
                 else if (r == "Return")
                 {
@@ -277,7 +252,7 @@ namespace poselki
                     string[] args = new string[t.Row.ItemArray.Length];
                     for (int i = 0; i < t.Row.ItemArray.Length; i++)
                         args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalEditingFromTable("call developerstoredproc_UPDATE", args);
+                    MagicUniversalControlData("call developerstoredproc_UPDATE", args, "Edit");
                 }
                 else if (r == "Escape")
                 {
@@ -294,7 +269,9 @@ namespace poselki
                 var r = e.Key.ToString();
                 if (r == "Delete")
                 {
-                    MagicUniversalDeletingFromTable("call villagesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
+                    var t = (DataRowView)Villages_Grid_Table.CurrentItem;
+                    string[] args = { t[0].ToString() };
+                    MagicUniversalControlData("call villagesstoredproc_DELETE(@Num)", args, "Delete");
                 }
                 else if (r == "Return")
                 {
@@ -302,7 +279,7 @@ namespace poselki
                     string[] args = new string[t.Row.ItemArray.Length];
                     for (int i = 0; i < t.Row.ItemArray.Length; i++)
                         args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalEditingFromTable("call villagesstoredproc_UPDATE", args);
+                    MagicUniversalControlData("call villagesstoredproc_UPDATE", args, "Edit");
                 }
                 else if (r == "Escape")
                 {
@@ -319,7 +296,9 @@ namespace poselki
                 var r = e.Key.ToString();
                 if (r == "Delete")
                 {
-                    MagicUniversalDeletingFromTable("call villagehousesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
+                    var t = (DataRowView)VillageHouses_Grid_Table.CurrentItem;
+                    string[] args = { t[0].ToString() };
+                    MagicUniversalControlData("call villagehousesstoredproc_DELETE(@Num)", args, "Delete");
                 }
                 else if (r == "Return")
                 {
@@ -327,7 +306,7 @@ namespace poselki
                     string[] args = new string[t.Row.ItemArray.Length];
                     for (int i = 0; i < t.Row.ItemArray.Length; i++)
                         args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalEditingFromTable("call villagehousesstoredproc_UPDATE", args);
+                    MagicUniversalControlData("call villagehousesstoredproc_UPDATE", args, "Edit");
                 }
                 else if (r == "Escape")
                 {
@@ -344,7 +323,9 @@ namespace poselki
                 var r = e.Key.ToString();
                 if (r == "Delete")
                 {
-                    MagicUniversalDeletingFromTable("call companytypesstoredproc_DELETE(@Num)", Company_Types_DataGRID);
+                    var t = (DataRowView)Company_Types_DataGRID.CurrentItem;
+                    string[] args = { t[0].ToString() };
+                    MagicUniversalControlData("call companytypesstoredproc_DELETE(@Num)", args, "Delete");
                 }
                 else if (r == "Return")
                 {
@@ -352,7 +333,7 @@ namespace poselki
                     string[] args = new string[t.Row.ItemArray.Length];
                     for (int i = 0; i < t.Row.ItemArray.Length; i++)
                         args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalEditingFromTable("call companytypesproc_UPDATE", args);
+                    MagicUniversalControlData("call companytypesproc_UPDATE", args, "Edit");
                 }
                 else if (r == "Escape")
                 {
@@ -369,7 +350,9 @@ namespace poselki
                 var r = e.Key.ToString();
                 if (r == "Delete")
                 {
-                    MagicUniversalDeletingFromTable("call housetypesstoredproc_DELETE(@Num)", House_Types_DataGRID);
+                    var t = (DataRowView)House_Types_DataGRID.CurrentItem;
+                    string[] args = { t[0].ToString() };
+                    MagicUniversalControlData("call housetypesstoredproc_DELETE(@Num)", args, "Delete");
                 }
                 else if (r == "Return")
                 {
@@ -377,7 +360,7 @@ namespace poselki
                     string[] args = new string[t.Row.ItemArray.Length];
                     for (int i = 0; i < t.Row.ItemArray.Length; i++)
                         args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalEditingFromTable("call housetypesproc_UPDATE", args);
+                    MagicUniversalControlData("call housetypesproc_UPDATE", args, "Edit");
                 }
                 else if (r == "Escape")
                 {
