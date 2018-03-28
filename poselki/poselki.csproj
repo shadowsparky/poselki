@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BestErrors.cs" />
     <Compile Include="developersEditForm.xaml.cs">
       <DependentUpon>developersEditForm.xaml</DependentUpon>
     </Compile>

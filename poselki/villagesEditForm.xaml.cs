@@ -7,7 +7,6 @@ namespace poselki
     public partial class villagesEditForm : Window
     {
         private WorkForm _WF;
-
         public MySqlConnection Connection { set; get; }
         public WorkForm WFSet
         {
@@ -20,25 +19,8 @@ namespace poselki
 
         private void Village_Add_BUTTON_Click(object sender, RoutedEventArgs e)
         {
-            bool error = false;
-            var AddCommand = new MySqlCommand("select villagesstoredfunc_INSERT(@Village_Number_IN, @Village_Name_IN, @Village_Area_IN, @Residents_Count_IN, @Developer_Number_IN)", Connection);
-            AddCommand.Parameters.AddWithValue("@Village_Number_IN", Village_Number_TB.Text);
-            AddCommand.Parameters.AddWithValue("@Village_Name_IN", Village_Name_TB.Text);
-            AddCommand.Parameters.AddWithValue("@Village_Area_IN", Village_Area_TB.Text);
-            AddCommand.Parameters.AddWithValue("@Residents_Count_IN", Village_Residents_Count_TB.Text);
-            AddCommand.Parameters.AddWithValue("@Developer_Number_IN", Village_Developer_Number.Text);
-            try
-            {
-                AddCommand.ExecuteScalar();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                error = true;
-            }
-            if (!error)
-                MessageBox.Show("Запись добавлена.", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-            _WF.UpdateVillages();
+            string[] dataArgs = { Village_Number_TB.Text, Village_Name_TB.Text, Village_Area_TB.Text, Village_Residents_Count_TB.Text, Village_Developer_Number.Text };
+            _WF.MagicUniversalAddToTable("select villagesstoredfunc_INSERT", dataArgs);
         }
-    } 
+    }
 }

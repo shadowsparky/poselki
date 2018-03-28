@@ -10,6 +10,7 @@ namespace poselki
     {
         public MySqlConnection Connection { set; get; }
         private DataRowView BestCurrentItem;
+        private BestErrors errors = new BestErrors();
 
         public WorkForm()
         {
@@ -31,7 +32,6 @@ namespace poselki
                 table.Columns[3].ColumnName = "Номер типа компании";
                 table.Columns[4].ColumnName = "Улица";
                 table.Columns[5].ColumnName = "Номер улицы";
-
                 testos.ItemsSource = table.DefaultView;
                 return true;
             }
@@ -43,7 +43,7 @@ namespace poselki
         public bool UpdateVillages()
         {
             try
-            { 
+            {
                 MySqlDataAdapter ad = new MySqlDataAdapter();
                 ad.SelectCommand = new MySqlCommand("call villagesstoredproc_SELECT", Connection);
                 DataTable table = new DataTable();
@@ -191,9 +191,9 @@ namespace poselki
             {
                 DelCommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -221,14 +221,44 @@ namespace poselki
             {
                 UpToDateCommand.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             RefreshAllTables();
             MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             BestCurrentItem = null;
+        }
+        public void MagicUniversalAddToTable(string QueryString, string[] DataArgs)
+        {
+            QueryString += "(";
+            string[] ParameterArg = new string[DataArgs.Length];
+            for (int i = 0; i < DataArgs.Length; i++)
+            {
+                if (i != DataArgs.Length - 1)
+                    QueryString += "@ARG" + i + ", ";
+                else
+                    QueryString += "@ARG" + i;
+                ParameterArg[i] = "@ARG" + i;
+            }
+            QueryString += ")";
+            var AddCommand = new MySqlCommand(QueryString, Connection);
+            for (int i = 0; i < DataArgs.Length; i++)
+            {
+                AddCommand.Parameters.AddWithValue(ParameterArg[i], DataArgs[i]);
+            }
+            try
+            {
+                AddCommand.ExecuteNonQuery();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            RefreshAllTables();
+            MessageBox.Show("Запись добавлена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // Удаление + редактирование
@@ -236,7 +266,7 @@ namespace poselki
         {
             try
             { 
-            var r = e.Key.ToString();
+                var r = e.Key.ToString();
                 if (r == "Delete")
                 {
                     MagicUniversalDeletingFromTable("call developerstoredproc_DELETE(@Num)", testos);
@@ -255,13 +285,13 @@ namespace poselki
                 }
             }
             catch (Exception)
-            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+            { errors.ExceptionProtector(); }
         }
         private void Villages_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             try
             { 
-            var r = e.Key.ToString();
+                var r = e.Key.ToString();
                 if (r == "Delete")
                 {
                     MagicUniversalDeletingFromTable("call villagesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
@@ -280,13 +310,13 @@ namespace poselki
                 }
             }
             catch (Exception)
-            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+            { errors.ExceptionProtector(); }
         }
         private void VillageHouses_Grid_Table_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             try
             { 
-            var r = e.Key.ToString();
+                var r = e.Key.ToString();
                 if (r == "Delete")
                 {
                     MagicUniversalDeletingFromTable("call villagehousesstoredproc_DELETE(@Num)", VillageHouses_Grid_Table);
@@ -305,7 +335,7 @@ namespace poselki
                 }
             }
             catch (Exception)
-            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+            { errors.ExceptionProtector(); }
         }
         private void Company_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -330,7 +360,7 @@ namespace poselki
                 }
             }
             catch (Exception)
-            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+            { errors.ExceptionProtector(); }
         }
         private void House_Types_DataGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
@@ -355,7 +385,7 @@ namespace poselki
                 }
             } 
             catch(Exception)
-            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+            { errors.ExceptionProtector(); }
         }
 
         // Костыли, которые не нужны в паскале
@@ -366,27 +396,53 @@ namespace poselki
                 BestCurrentItem = (DataRowView)VillageHouses_Grid_Table.CurrentItem;
             }   
             catch (Exception)
-            { MessageBox.Show("Не в мою смену", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information); }
+            { errors.ExceptionProtector(); }
         }
         private void Company_Types_DataGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            BestCurrentItem = (DataRowView)Company_Types_DataGRID.CurrentItem;
+            try
+            { 
+                BestCurrentItem = (DataRowView)Company_Types_DataGRID.CurrentItem;
+            }
+            catch (Exception)
+            { errors.ExceptionProtector(); }
         }
         private void House_Types_DataGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            BestCurrentItem = (DataRowView)House_Types_DataGRID.CurrentItem;
-        }
+            try
+            {
+                BestCurrentItem = (DataRowView)House_Types_DataGRID.CurrentItem;
+            }
+            catch (Exception)
+            { errors.ExceptionProtector(); }
+}
         private void AdminAccountsGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            BestCurrentItem = (DataRowView)AdminAccountsGRID.CurrentItem;
+            try
+            {
+                BestCurrentItem = (DataRowView)AdminAccountsGRID.CurrentItem;
+            }
+            catch (Exception)
+            { errors.ExceptionProtector(); }
         }
         private void testos_CellEditEnding_1(object sender, DataGridCellEditEndingEventArgs e)
         {
-            BestCurrentItem = (DataRowView)testos.CurrentItem;
-        }
+            try
+            {
+                BestCurrentItem = (DataRowView)testos.CurrentItem;
+            }
+            catch (Exception)
+            { errors.ExceptionProtector();
+    }
+}
         private void Villages_Grid_Table_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
-            BestCurrentItem = (DataRowView)Villages_Grid_Table.CurrentItem;
+            try
+            { 
+                BestCurrentItem = (DataRowView)Villages_Grid_Table.CurrentItem;
+            }
+            catch (Exception)
+            { errors.ExceptionProtector(); }
         }
     }
 }

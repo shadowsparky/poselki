@@ -1,0 +1,34 @@
+﻿using System.Windows;
+
+namespace poselki
+{
+    class BestErrors
+    {
+        public void ExceptionProtector()
+        {
+            MessageBox.Show("Произошла ошибка, но умнейшая программа все обработала", "Митинг подавлен", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        public string getError(string NumError)
+        {
+            switch (NumError)
+            {
+                case "1406":
+                    NumError = "Вы заполнили слишком длинное значение для одного или нескольких полей";
+                    break;
+                case "1452":
+                    NumError = "He удается добавить или обновить дочернюю строку: ограничение внешнего ключа дает сбой";
+                    break;
+                case "1062":
+                    NumError = "Произошло дублирование идентификатора. Я, конечно, дико извиняюсь, но вы чё";
+                    break;
+                case "1366":
+                    NumError = "Вы заполнили одно или несколько полей некорректно, извинитесь перед разработчиком и пообещайте ему что вы больше так не будете";
+                    break;
+                default:
+                    NumError = "Произошла неизвестная ошибка. Номер ошибки - " + NumError;
+                    break;
+            }
+            return NumError;
+        }
+    }
+}

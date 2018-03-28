@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
 using System.Windows;
 
 namespace poselki
@@ -7,7 +6,6 @@ namespace poselki
     public partial class developersEditForm : Window
     {
         private static WorkForm _WF;
-
         public MySqlConnection Connection { set; get; }
         public WorkForm WFSet
         {
@@ -20,28 +18,8 @@ namespace poselki
 
         private void Developers_Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            var error = false;
-            var AddCommand = new MySqlCommand("select developerstoredfunc_INSERT(@DevNum, @Dev, @AI, @DevCorpNum, @Street, @HN)", Connection);
-            AddCommand.Parameters.AddWithValue("@DevNum", Dev_ID_TB.Text);
-            AddCommand.Parameters.AddWithValue("@Dev", DevName_TB.Text);
-            AddCommand.Parameters.AddWithValue("@DevCorpNum", Developers_Company_Type_TB.Text);
-            AddCommand.Parameters.AddWithValue("@AI", Dev_Income_TB.Text);
-            AddCommand.Parameters.AddWithValue("@Street", Village_Street_TB.Text);
-            AddCommand.Parameters.AddWithValue("@HN", Home_Number_TB.Text);
-            try
-            {
-                AddCommand.ExecuteScalar();
-                MessageBox.Show("Запись добавлена", "OK", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            if (!error)
-            {
-                _WF.UpdateDevelopers();
-                _WF.UpdateCompanyTypes();
-            }
+            string[] dataArgs = { Dev_ID_TB.Text, DevName_TB.Text, Dev_Income_TB.Text, Developers_Company_Type_TB.Text, Village_Street_TB.Text, Home_Number_TB.Text };
+            _WF.MagicUniversalAddToTable("select developerstoredfunc_INSERT", dataArgs);
         }
     }
 }
