@@ -5,23 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" Height="312" Width="300" ResizeMode="NoResize">
+        Title="Редактирование девелоперов" WindowStartupLocation="CenterScreen" Height="287" Width="300" ResizeMode="NoResize">
     <Grid Margin="0,0, 0, 0">
         <GroupBox x:Name="AndEditAddGroupBox" Header="Добавить">
             <Grid>
-                <TextBox x:Name="DevName_TB" Height="23" Margin="106,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="1"/>
-                <TextBox x:Name="Dev_Income_TB" Height="23" Margin="106,66,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="2"/>
-                <TextBox x:Name="Dev_ID_TB" Height="23" Margin="106,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="0"/>
-                <TextBox x:Name="Village_Street_TB" Height="23" Margin="106,94,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="3"/>
-                <TextBlock x:Name="Dev_ID_Labrel" HorizontalAlignment="Left" Margin="19,12,0,0" TextWrapping="Wrap" Text="ID девелопера" VerticalAlignment="Top"/>
-                <TextBlock x:Name="Dev_Name_LABEL" HorizontalAlignment="Left" Margin="7,47,0,0" TextWrapping="Wrap" Text="Имя девелопера" VerticalAlignment="Top"/>
-                <TextBlock x:Name="Income_Label" HorizontalAlignment="Left" Margin="49,75,0,0" TextWrapping="Wrap" Text="Прибыль" VerticalAlignment="Top"/>
-                <TextBox x:Name="Home_Number_TB" Height="23" Margin="106,122,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="4"/>
-                <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="25,124,0,0" VerticalAlignment="Top"/>
-                <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="56,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
-                <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="10,192,10,0" Click="Developers_Add_Button_Click" TabIndex="6" FontSize="12" Height="33" VerticalAlignment="Top"/>
-                <Label x:Name="Developers_Company_Type_LAB" Content="Тип компании" HorizontalAlignment="Left" Margin="10,150,0,0" VerticalAlignment="Top" Height="23"/>
-                <TextBox x:Name="Developers_Company_Type_TB" Height="23" Margin="106,150,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="5"/>
+                <TextBox x:Name="DevName_TB" Height="23" Margin="106,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="1"/>
+                <TextBox x:Name="Dev_Income_TB" Height="23" Margin="106,39,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="2"/>
+                <TextBox x:Name="Village_Street_TB" Height="23" Margin="106,71,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="3"/>
+                <TextBlock x:Name="Dev_Name_LABEL" HorizontalAlignment="Left" Margin="7,10,0,0" TextWrapping="Wrap" Text="Имя девелопера" VerticalAlignment="Top"/>
+                <TextBlock x:Name="Income_Label" HorizontalAlignment="Left" Margin="49,48,0,0" TextWrapping="Wrap" Text="Прибыль" VerticalAlignment="Top"/>
+                <TextBox x:Name="Home_Number_TB" Height="23" Margin="106,99,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="4"/>
+                <Label x:Name="Home_Number_LABEL" Content="Номер дома" HorizontalAlignment="Left" Margin="25,101,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="Street" Content="Улица" HorizontalAlignment="Left" Margin="56,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.476,-0.129"/>
+                <Button x:Name="Developers_Add_Button" Content="Добавить" Margin="10,164,10,0" Click="Developers_Add_Button_Click" TabIndex="6" FontSize="12" Height="33" VerticalAlignment="Top"/>
+                <Label x:Name="Developers_Company_Type_LAB" Content="Тип компании" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Height="23"/>
+                <TextBox x:Name="Developers_Company_Type_TB" Height="23" Margin="106,127,10,0" TextWrapping="Wrap" VerticalAlignment="Top" TabIndex="5"/>
             </Grid>
         </GroupBox>
     </Grid>

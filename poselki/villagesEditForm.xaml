@@ -5,21 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Редактирование поселков" Height="289.697" Width="335" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Grid Margin="0,0,0,0">
-        <GroupBox x:Name="AddAndEditVillages_GB" Header="Добавление" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+        Title="Редактирование поселков" Height="267.549" Width="335" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <GroupBox x:Name="AddAndEditVillages_GB" Header="Добавление" HorizontalAlignment="Left" Height="233" VerticalAlignment="Top">
             <Grid>
-                <TextBox x:Name="Village_Number_TB" HorizontalAlignment="Left" Height="23" Margin="139,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="0" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="Village_Name_TB" HorizontalAlignment="Left" Height="23" Margin="139,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="1" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="Village_Area_TB" HorizontalAlignment="Left" Height="23" Margin="139,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="2" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="Village_Residents_Count_TB" HorizontalAlignment="Left" Height="23" Margin="139,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="3" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="Village_Developer_Number" HorizontalAlignment="Left" Height="23" Margin="139,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="4" Grid.ColumnSpan="2"/>
-                <Label x:Name="Village_Number_Lab" Content="Номер поселка" HorizontalAlignment="Left" Margin="39,10,0,0" VerticalAlignment="Top" Height="28" Grid.ColumnSpan="2"/>
-                <Label x:Name="Village_Name_LAB" Content="Название поселка" HorizontalAlignment="Left" Margin="24,38,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
-                <Label x:Name="Village_Area_LAB" Content="Площадь поселка" HorizontalAlignment="Left" Margin="26,66,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
-                <Label x:Name="Village_Residents_Count_LAB" Content="Количество жителей" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Height="23" Grid.ColumnSpan="2"/>
-                <Label x:Name="Village_Developer_Number_LAB" Content="Номер  девелопера" HorizontalAlignment="Left" Margin="15,122,0,0" VerticalAlignment="Top" Height="30" Grid.ColumnSpan="2"/>
-                <Button x:Name="Village_Add_BUTTON" Content="Добавить" Margin="10,166,10,0" VerticalAlignment="Top" Click="Village_Add_BUTTON_Click" TabIndex="5" FontSize="12"/>
+                <TextBox x:Name="Village_Name_TB" HorizontalAlignment="Left" Height="23" Margin="139,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="1"/>
+                <TextBox x:Name="Village_Area_TB" HorizontalAlignment="Left" Height="23" Margin="139,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="2"/>
+                <TextBox x:Name="Village_Residents_Count_TB" HorizontalAlignment="Left" Height="23" Margin="139,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="3"/>
+                <TextBox x:Name="Village_Developer_Number" HorizontalAlignment="Left" Height="23" Margin="139,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" TabIndex="4"/>
+                <Label x:Name="Village_Name_LAB" Content="Название поселка" HorizontalAlignment="Left" Margin="24,20,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label x:Name="Village_Area_LAB" Content="Площадь поселка" HorizontalAlignment="Left" Margin="26,48,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label x:Name="Village_Residents_Count_LAB" Content="Количество жителей" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Height="23"/>
+                <Label x:Name="Village_Developer_Number_LAB" Content="Номер  девелопера" HorizontalAlignment="Left" Margin="15,104,0,0" VerticalAlignment="Top" Height="30"/>
+                <Button x:Name="Village_Add_BUTTON" Content="Добавить" Margin="10,148,10,1" Click="Village_Add_BUTTON_Click" TabIndex="5" FontSize="12" Height="Auto"/>
             </Grid>
         </GroupBox>
     </Grid>

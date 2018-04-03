@@ -18,7 +18,7 @@ namespace poselki
 
         private void Developers_Add_Button_Click(object sender, RoutedEventArgs e)
         {
-            string[] dataArgs = { Dev_ID_TB.Text, DevName_TB.Text, Dev_Income_TB.Text, Developers_Company_Type_TB.Text, Village_Street_TB.Text, Home_Number_TB.Text };
+            string[] dataArgs = { DevName_TB.Text, Dev_Income_TB.Text, Developers_Company_Type_TB.Text, Village_Street_TB.Text, Home_Number_TB.Text };
             _WF.MagicUniversalControlData("select developerstoredfunc_INSERT", dataArgs, "Add");
         }
     }

@@ -6,11 +6,13 @@ using System.Windows.Controls;
 
 namespace poselki
 {
-    public partial class WorkForm : Window
+    public partial class WorkForm : Window, INterfaceInToFace
     {
         public MySqlConnection Connection { set; get; }
         private DataRowView BestCurrentItem;
         private BestErrors errors = new BestErrors();
+        private string _CurrentRole = "######";
+        public string CurrentRole { get { return _CurrentRole; } set { _CurrentRole = value; } }
 
         public WorkForm()
         {
@@ -40,6 +42,7 @@ namespace poselki
                 return false;
             }
         }
+
         public bool UpdateVillages()
         {
             try
@@ -60,7 +63,7 @@ namespace poselki
             {
                 return false;
             }
-        }
+}
         public bool UpdateVillageHouses()
         {
             try
@@ -139,11 +142,23 @@ namespace poselki
         public bool RefreshAllTables()
         {
             bool error = false;
-            if (!UpdateDevelopers()) error = true;
-            if (!UpdateVillages()) error = true;
-            if (!UpdateVillageHouses()) error = true;
-            if (!UpdateHouseTypes()) error = true;
-            if (!UpdateCompanyTypes()) error = true;
+            if (_CurrentRole == "Developer")
+            {
+                if (!UpdateVillages()) error = true;
+                if (!UpdateVillageHouses()) error = true;
+            }
+            if (_CurrentRole == "Dispatcher")
+            {
+                if (!UpdateHouseTypes()) error = true;
+                if (!UpdateCompanyTypes()) error = true;
+                if (!UpdateDevelopers()) error = true;
+            }
+            if (_CurrentRole == "JustUser")
+            {
+                if (!UpdateDevelopers()) error = true;
+                if (!UpdateVillages()) error = true;
+                if (!UpdateVillageHouses()) error = true;
+            }
             if (error) return false;
             else
                 return true;

@@ -26,6 +26,9 @@ namespace poselki
                 case "1366":
                     NumError = "Вы заполнили одно или несколько полей некорректно, извинитесь перед разработчиком и пообещайте ему что вы больше так не будете";
                     break;
+                case "1370":
+                    NumError = "Да-да, прикольно, но это так не работает)))";
+                    break;
                 default:
                     string ErrorToFile = "Произошла неизвестная ошибка. Номер ошибки - " + NumError;
                     if (LogMessageToFile(ErrorToFile))
@@ -36,13 +39,13 @@ namespace poselki
             }
             return NumError;
         }
+
         private string GetTempPath()
         {
             string path = System.Environment.GetEnvironmentVariable("TEMP");
             if (!path.EndsWith("\\")) path += "\\";
             return path;
         }
-
         private bool LogMessageToFile(string msg)
         {
             StreamWriter sw = File.AppendText(

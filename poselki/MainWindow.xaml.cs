@@ -47,6 +47,51 @@ namespace poselki
                 MessageBox.Show("OK", "Все намана", MessageBoxButton.OK, MessageBoxImage.Information);
                 WF = new WorkForm();
                 WF.Connection = _connection;
+                string CheckRole = "#####";
+                MySqlCommand checkrolecommand = new MySqlCommand("Select current_role", _connection);
+                MySqlDataReader r = checkrolecommand.ExecuteReader();
+                r.Read();
+                try
+                {
+                    CheckRole = r.GetString(0);
+                }
+                catch (Exception)
+                { }
+                if (CheckRole == "Developer")
+                {
+                    WF.control.Items.RemoveAt(0);
+                    WF.control.Items.RemoveAt(2);
+                    WF.control.Items.RemoveAt(2);
+                    WF.control.Items.RemoveAt(2);
+                }
+                if (CheckRole == "Dispatcher")
+                {
+                    WF.control.Items.RemoveAt(1);
+                    WF.control.Items.RemoveAt(1);
+                    WF.control.Items.RemoveAt(3);
+                }
+                if (CheckRole == "JustUser")
+                {
+                    WF.control.Items.RemoveAt(3);
+                    WF.control.Items.RemoveAt(3);
+                    WF.control.Items.RemoveAt(3);
+
+                    WF.testEditButton.Visibility = Visibility.Collapsed;
+                    WF.VillageHouses_Edit_Button.Visibility = Visibility.Collapsed;
+                    WF.Villages_Edit_Button.Visibility = Visibility.Collapsed;
+
+                    Thickness SetMargin = WF.testos.Margin;
+                    SetMargin.Bottom = 0;
+                    WF.testos.Margin = SetMargin;
+                    WF.VillageHouses_Grid_Table.Margin = SetMargin;
+                    WF.Villages_Grid_Table.Margin = SetMargin;
+
+                    WF.testos.IsReadOnly = true;
+                    WF.VillageHouses_Grid_Table.IsReadOnly = true;
+                    WF.Villages_Grid_Table.IsReadOnly = true;
+                }
+                WF.CurrentRole = CheckRole;
+                r.Close();
                 this.Close();
                 WF.Show();
             }
