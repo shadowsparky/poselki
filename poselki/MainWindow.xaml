@@ -18,7 +18,7 @@
         </Grid.Background>
         <materialDesign:PackIcon Kind="Account" VerticalAlignment ="Center" Margin="0,0,160,45" HorizontalAlignment="Center"/>
         <materialDesign:PackIcon Kind="Key" VerticalAlignment ="Center" Margin="0,5,160,0" HorizontalAlignment="Center"/>
-        <TextBox x:Name="loginBox" HorizontalAlignment="Center" Margin="16,0,0,50" TextWrapping="Wrap" VerticalAlignment="Center" MaxLength="15" TabIndex="0" Height="25" Width="148" />
+        <TextBox x:Name="loginBox" HorizontalAlignment="Center" Margin="16,0,0,50" TextWrapping="Wrap" VerticalAlignment="Center" MaxLength="30" TabIndex="0" Height="25" Width="148" />
         <Button x:Name="authButton" Content="Авторизация" HorizontalAlignment="Center" Margin="0,90,0,0" Height="Auto" Click="authButton_Click" TabIndex="2" IsDefault="True" Width="164" VerticalAlignment="Center"/>
         <TextBlock x:Name="progNameText" HorizontalAlignment="Center" Margin="155,50,155,0" TextWrapping="Wrap" Text="База данных поселков" VerticalAlignment="Top" FontSize="20" Height="58" Width="164" FontFamily="Segoe UI Semilight" TextAlignment="Center"/>
         <PasswordBox x:Name="passBox" HorizontalAlignment="Center" Margin="16,0,0,0" VerticalAlignment="Center" TabIndex="1" Height="25" Width="148"/>

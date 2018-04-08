@@ -10,9 +10,9 @@ namespace poselki
     {
         public MySqlConnection Connection { set; get; }
         private DataRowView BestCurrentItem;
+        private DataRowView BestKostil;
         private BestErrors errors = new BestErrors();
-        private string _CurrentRole = "######";
-        public string CurrentRole { get { return _CurrentRole; } set { _CurrentRole = value; } }
+        public string CurrentRole { get; set; }
 
         public WorkForm()
         {
@@ -127,37 +127,44 @@ namespace poselki
         {
             try
             {
-                //MySqlDataAdapter ad = new MySqlDataAdapter();
-                //ad.SelectCommand = new MySqlCommand("call adminusersstoredproc_SELECT", Connection);
-                //DataTable table = new DataTable();
-                //ad.Fill(table);
-                //AdminAccountsGRID.ItemsSource = table.DefaultView;
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call useradmin_select", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                table.Columns[0].ColumnName = "Хост";
+                table.Columns[1].ColumnName = "Логин";
+                table.Columns[2].ColumnName = "Роль";
+                AdminAccountsGRID.ItemsSource = table.DefaultView;
                 return true;
             }
             catch (Exception)
             {
                 return false;
             }
-        }
+}
         public bool RefreshAllTables()
         {
             bool error = false;
-            if (_CurrentRole == "Developer")
+            if (CurrentRole == "Developer")
             {
                 if (!UpdateVillages()) error = true;
                 if (!UpdateVillageHouses()) error = true;
             }
-            if (_CurrentRole == "Dispatcher")
+            if (CurrentRole == "Dispatcher")
             {
                 if (!UpdateHouseTypes()) error = true;
                 if (!UpdateCompanyTypes()) error = true;
                 if (!UpdateDevelopers()) error = true;
             }
-            if (_CurrentRole == "JustUser")
+            if (CurrentRole == "JustUser")
             {
                 if (!UpdateDevelopers()) error = true;
                 if (!UpdateVillages()) error = true;
                 if (!UpdateVillageHouses()) error = true;
+            }
+            if (CurrentRole == "Admin")
+            {
+                if (!UpdateAccountList()) error = true;
             }
             if (error) return false;
             else
@@ -167,8 +174,6 @@ namespace poselki
         // Разнообразные 
         private void testos_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!RefreshAllTables())
-                MessageBox.Show("При загрузке данных произошла ошибка", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         private void testEditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -193,7 +198,10 @@ namespace poselki
         }
         private void ADMIN_EditUsersBUTTON_Click(object sender, RoutedEventArgs e)
         {
-
+            AdminForm AF = new AdminForm();
+            AF.SetConnection = Connection;
+            AF.SetWF = this;
+            AF.Show();
         }
 
         /*Шаблон*/
@@ -385,6 +393,33 @@ namespace poselki
             catch(Exception)
             { errors.ExceptionProtector(); }
         }
+        private void AdminAccountsGRID_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            {
+                var r = e.Key.ToString();
+                if (r == "Delete")
+                {
+                    var t = (DataRowView)AdminAccountsGRID.CurrentItem;
+                    string[] args = { t[1].ToString() };
+                    MagicUniversalControlData("call admin_dropuser(@Num)", args, "Delete");
+                }
+                else if (r == "Return")
+                {
+                    //var t = BestCurrentItem;
+                    //var t2 = BestKostil;
+                    //var t2 = (DataRowView)AdminAccountsGRID.(AdminAccountsGRID.SelectedIndex--);
+                    //string[] args = { t[2].ToString() };
+                    //MagicUniversalControlData("call admin_renameuser", args, "Edit");
+                }
+                else if (r == "Escape")
+                {
+                    RefreshAllTables();
+                }
+            }
+            catch (Exception)
+            { errors.ExceptionProtector(); }
+        }
 
         // Костыли, которые не нужны в паскале
         private void VillageHouses_Grid_Table_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -441,6 +476,22 @@ namespace poselki
             }
             catch (Exception)
             { errors.ExceptionProtector(); }
+        }
+
+        private void BestGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!RefreshAllTables())
+                MessageBox.Show("При загрузке данных произошла ошибка", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void AdminAccountsGRID_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            //try
+            //{
+            //    //BestKostil = (DataRowView);
+            //}
+            //catch (Exception)
+            //{ errors.ExceptionProtector(); }
         }
     }
 }

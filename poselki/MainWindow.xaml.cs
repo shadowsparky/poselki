@@ -44,7 +44,6 @@ namespace poselki
         {
             if (ConnInit())
             {
-                MessageBox.Show("OK", "Все намана", MessageBoxButton.OK, MessageBoxImage.Information);
                 WF = new WorkForm();
                 WF.Connection = _connection;
                 string CheckRole = "#####";
@@ -56,7 +55,7 @@ namespace poselki
                     CheckRole = r.GetString(0);
                 }
                 catch (Exception)
-                { }
+                { } 
                 if (CheckRole == "Developer")
                 {
                     WF.control.Items.RemoveAt(0);
@@ -64,13 +63,13 @@ namespace poselki
                     WF.control.Items.RemoveAt(2);
                     WF.control.Items.RemoveAt(2);
                 }
-                if (CheckRole == "Dispatcher")
+                else if (CheckRole == "Dispatcher")
                 {
                     WF.control.Items.RemoveAt(1);
                     WF.control.Items.RemoveAt(1);
                     WF.control.Items.RemoveAt(3);
                 }
-                if (CheckRole == "JustUser")
+                else if (CheckRole == "JustUser")
                 {
                     WF.control.Items.RemoveAt(3);
                     WF.control.Items.RemoveAt(3);
@@ -90,6 +89,25 @@ namespace poselki
                     WF.VillageHouses_Grid_Table.IsReadOnly = true;
                     WF.Villages_Grid_Table.IsReadOnly = true;
                 }
+                else if (CheckRole == "Admin")
+                {
+                    WF.control.Items.RemoveAt(0);
+                    WF.control.Items.RemoveAt(0);
+                    WF.control.Items.RemoveAt(0);
+                    WF.control.Items.RemoveAt(0);
+                    WF.control.Items.RemoveAt(0);
+                }
+                else if (CheckRole == "Blocked")
+                {
+                    MessageBox.Show("Ваша учетная запись была заблокирована", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else 
+                {
+                    MessageBox.Show("Ваша учетная запись неправильно настроена. Дайте по голове своему системному администратору", "Внимательнее", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                MessageBox.Show("OK", "Все намана", MessageBoxButton.OK, MessageBoxImage.Information);
                 WF.CurrentRole = CheckRole;
                 r.Close();
                 this.Close();

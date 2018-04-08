@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Работа с таблицами" Height="476.027" WindowStartupLocation="CenterScreen" Width="536.973">
 
-    <Grid>
+    <Grid x:Name="BestGrid" Loaded="BestGrid_Loaded">
         <dragablz:TabablzControl x:Name="control">
             <TabItem x:Name="DevTab" Header="Девелоперы" Margin="0" HorizontalAlignment="Left" Width="85" Height="23" VerticalAlignment="Bottom">
                 <Grid>
@@ -40,7 +40,7 @@
             <TabItem x:Name="AdminTAB" Header="Аккаунты" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="0">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="ADMIN_EditUsersBUTTON" Content="Редактировать пользователей" VerticalAlignment="Bottom" Height="34" IsDefault="True" Click="ADMIN_EditUsersBUTTON_Click"/>
-                    <DataGrid x:Name="AdminAccountsGRID" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" CellEditEnding="AdminAccountsGRID_CellEditEnding"/>
+                    <DataGrid x:Name="AdminAccountsGRID" CanUserAddRows="False" CanUserDeleteRows="False" Margin="0,0,0,36" CellEditEnding="AdminAccountsGRID_CellEditEnding" KeyUp="AdminAccountsGRID_KeyUp" MouseEnter="AdminAccountsGRID_MouseEnter"/>
                 </Grid>
             </TabItem>
         </dragablz:TabablzControl>
