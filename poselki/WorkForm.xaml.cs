@@ -1,8 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml;
 
 namespace poselki
 {
@@ -10,7 +12,6 @@ namespace poselki
     {
         public MySqlConnection Connection { set; get; }
         private DataRowView BestCurrentItem;
-        private DataRowView BestKostil;
         private BestErrors errors = new BestErrors();
         public string CurrentRole { get; set; }
 
@@ -35,6 +36,30 @@ namespace poselki
                 table.Columns[4].ColumnName = "Улица";
                 table.Columns[5].ColumnName = "Номер улицы";
                 testos.ItemsSource = table.DefaultView;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool UpdateLogs()
+        {
+            try
+            {
+                MySqlDataAdapter ad = new MySqlDataAdapter();
+                ad.SelectCommand = new MySqlCommand("call admin_getlogs()", Connection);
+                DataTable table = new DataTable();
+                ad.Fill(table);
+                table.Columns[0].ColumnName = "Номер лога";
+                table.Columns[1].ColumnName = "Логин";
+                table.Columns[2].ColumnName = "Действие";
+                table.Columns[3].ColumnName = "Номер идентфикатора";
+                table.Columns[4].ColumnName = "Новые данные";
+                table.Columns[5].ColumnName = "Старые данные";
+                table.Columns[6].ColumnName = "Дата и время";
+                AdminLogsGRID.ItemsSource = table.DefaultView;
                 return true;
             }
             catch (Exception)
@@ -165,6 +190,7 @@ namespace poselki
             if (CurrentRole == "Admin")
             {
                 if (!UpdateAccountList()) error = true;
+                if (!UpdateLogs()) error = true;
             }
             if (error) return false;
             else
@@ -204,6 +230,14 @@ namespace poselki
             AF.Show();
         }
 
+        private void ADMIN_BestEditUsersBUTTON_Click(object sender, RoutedEventArgs e)
+        {
+            AdminEditForm AEF = new AdminEditForm();
+            AEF.SetConnection = Connection;
+            AEF.SetWF = this;
+            AEF.Show();
+        }
+
         /*Шаблон*/
         public void MagicUniversalControlData(string QueryString, string[] DataArgs, string userControl)
         {
@@ -237,7 +271,14 @@ namespace poselki
                 RefreshAllTables();
                 if (userControl == "Add")
                     MessageBox.Show("Запись добавлена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                else MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                else if (userControl == "UserAdd")
+                    MessageBox.Show("Пользователь добавлен", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                else if (userControl == "UserEdit")
+                    MessageBox.Show("Пользователь отредактирован", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                else if (userControl == "UserRole")
+                    MessageBox.Show("Роль пользователя обновлена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                    MessageBox.Show("Запись отредактирована", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -404,14 +445,6 @@ namespace poselki
                     string[] args = { t[1].ToString() };
                     MagicUniversalControlData("call admin_dropuser(@Num)", args, "Delete");
                 }
-                else if (r == "Return")
-                {
-                    //var t = BestCurrentItem;
-                    //var t2 = BestKostil;
-                    //var t2 = (DataRowView)AdminAccountsGRID.(AdminAccountsGRID.SelectedIndex--);
-                    //string[] args = { t[2].ToString() };
-                    //MagicUniversalControlData("call admin_renameuser", args, "Edit");
-                }
                 else if (r == "Escape")
                 {
                     RefreshAllTables();
@@ -485,13 +518,151 @@ namespace poselki
         }
 
         private void AdminAccountsGRID_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        { 
+        }
+
+        public void CheckBox(System.Windows.Controls.TextChangedEventArgs e, TextBox TB)
         {
-            //try
-            //{
-            //    //BestKostil = (DataRowView);
-            //}
-            //catch (Exception)
-            //{ errors.ExceptionProtector(); }
+            TB.Text = TB.Text.Replace(" ", string.Empty);
+            TB.Text = TB.Text.Replace("'", string.Empty);
+            TB.Text = TB.Text.Replace('"', ' ');
+            TB.Text = TB.Text.Replace("*", string.Empty);
+            TB.Text = TB.Text.Replace("/", string.Empty);
+            TB.Text = TB.Text.Replace(";", string.Empty);
+            TB.Text = TB.Text.Replace("@", string.Empty);
+            TB.Text = TB.Text.Replace("!", string.Empty);
+            TB.Text = TB.Text.Replace("#", string.Empty);
+            TB.Text = TB.Text.Replace("$", string.Empty);
+            TB.Text = TB.Text.Replace("№", string.Empty);
+            TB.Text = TB.Text.Replace("%", string.Empty);
+            TB.Text = TB.Text.Replace("^", string.Empty);
+            TB.Text = TB.Text.Replace(":", string.Empty);
+            TB.Text = TB.Text.Replace("?", string.Empty);
+            TB.Text = TB.Text.Replace("*", string.Empty);
+            TB.Text = TB.Text.Replace("(", string.Empty);
+            TB.Text = TB.Text.Replace(")", string.Empty);
+            TB.Text = TB.Text.Replace(",", string.Empty);
+            TB.Text = TB.Text.Replace(".", string.Empty);
+            TB.Text = TB.Text.Replace("<", string.Empty);
+            TB.Text = TB.Text.Replace(">", string.Empty);
+            TB.Text = TB.Text.Replace("[", string.Empty);
+            TB.Text = TB.Text.Replace("]", string.Empty);
+            TB.Text = TB.Text.Replace("{", string.Empty);
+            TB.Text = TB.Text.Replace("}", string.Empty);
+            TB.Text = TB.Text.Replace("-", string.Empty);
+            TB.Text = TB.Text.Replace("|", string.Empty);
+            TB.Text = TB.Text.Replace("\\", string.Empty);
+            TB.SelectionStart = TB.Text.Length;
+        }
+
+        private void ExportXml()
+        {
+            try
+            {
+                SaveFileDialog SFD = new SaveFileDialog();
+                SFD.Filter = "xml файл (*.xml)|*.xml";
+                if (SFD.ShowDialog() == true)
+                {
+                    var r = SFD.FileName.Split('.');
+                    if (r[r.Length-1] == "xml")
+                    {
+                        using (XmlWriter writer = XmlWriter.Create(SFD.FileName))
+                        {
+                            /*var t = "н" + "е" + " " + "с" + "м" + "о" + "т" + "р" + "и" + "т" + "e" +
+                             * " " + "с" + "ю" + "д" + "а" + " " + 
+                             * "п" + "о" + "ж" + "а" + "л" + "у" + "й" + "с" + "т" + "а" 
+                             *                                                                                                                                              ;*/
+                            try
+                            {
+                                // у меня аутизм
+                                writer.WriteStartElement("Data");
+                                // не смотрите на этот код
+                                writer.WriteStartElement("Developers");
+                                fillXml(writer, "DevElement", "call developerstoredproc_SELECT");
+                                writer.WriteEndElement();
+                                // вам станет плохо
+                                writer.WriteStartElement("CompanyTypes");
+                                fillXml(writer, "CompanyTypesElement", "call companytypesstoredproc_SELECT");
+                                writer.WriteEndElement();
+                                // -_-
+                                writer.WriteStartElement("VillageHouses");
+                                fillXml(writer, "VillageHousesElement", "call villagehousesstoredproc_SELECT");
+                                writer.WriteEndElement();
+                                // хватит смотреть
+                                writer.WriteStartElement("Villages");
+                                fillXml(writer, "VillagesElement", "call villagesstoredproc_SELECT");
+                                writer.WriteEndElement();
+                                // пожалуйста
+                                writer.WriteStartElement("HouseTypes");
+                                fillXml(writer, "HouseTypesElement", "call housetypesstoredproc_SELECT");
+                                writer.WriteEndElement();
+                                // убейте меня
+                                writer.WriteEndElement();
+                                writer.Flush();
+                                //=))))
+                            }
+                            catch (Exception ex)
+                            {
+                                // помогите
+                                var e = ex.Message;
+                                MessageBox.Show("Во время сохранения произошла ошибка", "ошибка");
+                                // я как Гарольд
+                            }
+                            // который 
+                        }
+                        // скрывает
+                    }
+                    // боль
+                    else
+                    // за
+                    {
+                        // улыбкой
+                        MessageBox.Show("не xml", "ошибка");
+                        // курсовой
+                        // меня
+                        // убивает
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("отменено", "ошибка");
+                }
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("AAAAAAAAaaaaaaaaAAaAaaAaaAAAaAaaaaaaAAAAaaaaaAAAAAAAaaaaaAAAAaA");
+            }
+        }
+
+        private void fillXml(XmlWriter writer, string nameHeader, string queryString)
+        {
+            string data = "";
+            try
+            {
+                MySqlCommand query = new MySqlCommand(queryString, Connection);
+                MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query);
+                DataSet sqlDataSet = new DataSet();
+                dataAdapter.Fill(sqlDataSet);
+                for (int i = 0; i <= sqlDataSet.Tables[0].Rows.Count - 1; i++)
+                {
+                    writer.WriteStartElement(nameHeader);
+                    for (int j = 0; j <= sqlDataSet.Tables[0].Columns.Count - 1; j++)
+                    {
+                        data = sqlDataSet.Tables[0].Rows[i].ItemArray[j].ToString();
+                        writer.WriteElementString(sqlDataSet.Tables[0].Columns[j].Caption, data);
+                    }
+                    writer.WriteEndElement();
+                }
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void ADMIN_XMLBUTTON_Click(object sender, RoutedEventArgs e)
+        {
+            ExportXml();
         }
     }
 }

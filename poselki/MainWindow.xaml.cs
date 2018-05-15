@@ -10,7 +10,7 @@ namespace poselki
     public partial class MainWindow : Window
     {
         private static MySqlConnection _connection;
-        private WorkForm WF; 
+        private WorkForm WF = new WorkForm(); 
 
         public MySqlConnection DataSource
         {
@@ -30,8 +30,9 @@ namespace poselki
                 _connection.Open();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var t = ex.Message; 
                 return false;
             }
         }
@@ -44,7 +45,6 @@ namespace poselki
         {
             if (ConnInit())
             {
-                WF = new WorkForm();
                 WF.Connection = _connection;
                 string CheckRole = "#####";
                 MySqlCommand checkrolecommand = new MySqlCommand("Select current_role", _connection);
@@ -62,11 +62,13 @@ namespace poselki
                     WF.control.Items.RemoveAt(2);
                     WF.control.Items.RemoveAt(2);
                     WF.control.Items.RemoveAt(2);
+                    WF.control.Items.RemoveAt(2);
                 }
                 else if (CheckRole == "Dispatcher")
                 {
                     WF.control.Items.RemoveAt(1);
                     WF.control.Items.RemoveAt(1);
+                    WF.control.Items.RemoveAt(3);
                     WF.control.Items.RemoveAt(3);
                 }
                 else if (CheckRole == "JustUser")
@@ -74,7 +76,7 @@ namespace poselki
                     WF.control.Items.RemoveAt(3);
                     WF.control.Items.RemoveAt(3);
                     WF.control.Items.RemoveAt(3);
-
+                    WF.control.Items.RemoveAt(3);
                     WF.testEditButton.Visibility = Visibility.Collapsed;
                     WF.VillageHouses_Edit_Button.Visibility = Visibility.Collapsed;
                     WF.Villages_Edit_Button.Visibility = Visibility.Collapsed;

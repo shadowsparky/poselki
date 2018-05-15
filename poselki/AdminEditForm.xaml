@@ -1,0 +1,26 @@
+﻿<Window x:Class="poselki.AdminEditForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:poselki"
+        mc:Ignorable="d"
+        Title="Редактирование аккаунтов" Height="255.452" Width="245.113" ResizeMode="NoResize">
+    <Grid>
+        <Grid x:Name="BestAdminGrid" Loaded="BestAdminGrid_Loaded" Margin="0,0,2,0">
+            <GroupBox x:Name="RegUserBox" Header="Редактировать" Margin="0,0,0,0">
+                <Grid>
+                    <Label x:Name ="Login_LAB" Content="Старый Логин" Margin="0,0,0,0" Width="90" HorizontalContentAlignment="Right"    HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name ="newLogin_LAB" Content="Новый Логин" Margin="0,30,0,0" Width="90" HorizontalContentAlignment="Right"    HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name ="Pass_LAB" Content="Пароль" HorizontalContentAlignment="Right" Margin="0,60,0,0" Width="90"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label x:Name ="SpecBoxLAB" Content="Роль" HorizontalContentAlignment="Right" Margin="0,90,0,0" Width="90"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBox x:Name="LoginBox" HorizontalAlignment="Left" Height="23" Margin="90,0,0,0" MaxLength="30" TextChanged="LoginBox_TextChanged" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="newLoginBox" HorizontalAlignment="Left" Height="23" Margin="90,30,0,0" MaxLength="30"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="newLoginBox_TextChanged"/>
+                    <TextBox x:Name="PassBox" HorizontalAlignment="Left" Height="23" Margin="90,60,0,0" MaxLength="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="PassBox_TextChanged"/>
+                    <ComboBox x:Name ="RoleBox" HorizontalAlignment="Left" Margin="90,90,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="RegButton" Content="Редактировать" Click="RegButton_Click" HorizontalAlignment="Left" Margin="0,130,0,0" VerticalAlignment="Top" Width="215"></Button>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,6 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Windows;
-
+using System.Windows.Controls;
 
 namespace poselki
 {
@@ -36,7 +36,6 @@ namespace poselki
                         RoleBox.Items.Add("Админ");
                         break;
                 }
-                //RoleBox.Items.Add(r.GetString(0));
             }
             r.Close();
         }
@@ -63,12 +62,29 @@ namespace poselki
                 }
                 string[] data = { LoginBox.Text, PassBox.Text, Role};
 
-                _WF.MagicUniversalControlData(queryString, data, "Add");
+                _WF.MagicUniversalControlData(queryString, data, "UserAdd");
             }
             else
             {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void LoginBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+                
+        }
+
+
+
+        private void LoginBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            _WF.CheckBox(e, LoginBox);
+        }
+
+        private void PassBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            _WF.CheckBox(e, PassBox);
         }
     }
 }

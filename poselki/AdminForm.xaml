@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:poselki"
         mc:Ignorable="d"
-        Title="AdminForm" Height="223.308" Width="218.459">
+        Title="AdminForm" Height="223.308" Width="218.459" ResizeMode="NoResize">
     <Grid x:Name="BestAdminGrid" Loaded="BestAdminGrid_Loaded" Margin="0,0,2,0">
         <GroupBox x:Name="RegUserBox" Header="Регистрация" Margin="0,0,0,0">
             <Grid>
                 <Label x:Name ="Login_LAB" Content="Логин" Margin="0,0,0,0" Width="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <Label x:Name ="Pass_LAB" Content="Пароль" Margin="0,30,0,0" Width="50"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 <Label x:Name ="SpecBoxLAB" Content="Роль" Margin="0,60,0,0" Width="50"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox x:Name="LoginBox" HorizontalAlignment="Left" Height="23" Margin="50,0,0,0" MaxLength="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <TextBox x:Name="PassBox" HorizontalAlignment="Left" Height="23" Margin="50,30,0,0" MaxLength="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="LoginBox" HorizontalAlignment="Left" Height="23" Margin="50,0,0,0" MaxLength="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="LoginBox_TextChanged"/>
+                <TextBox x:Name="PassBox" HorizontalAlignment="Left" Height="23" Margin="50,30,0,0" MaxLength="30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="PassBox_TextChanged"/>
                 <ComboBox x:Name ="RoleBox" HorizontalAlignment="Left" Margin="50,60,0,0" VerticalAlignment="Top" Width="120"/>
                 <Button x:Name="RegButton" Content="Зарегистрировать" Click="RegButton_Click" HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="185"></Button>
             </Grid>

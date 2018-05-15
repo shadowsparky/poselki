@@ -91,6 +91,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminEditForm.xaml.cs">
+      <DependentUpon>AdminEditForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminForm.xaml.cs">
       <DependentUpon>AdminForm.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,10 @@
     <Compile Include="WorkForm.xaml.cs">
       <DependentUpon>WorkForm.xaml</DependentUpon>
     </Compile>
+    <Page Include="AdminEditForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
