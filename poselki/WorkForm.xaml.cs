@@ -88,7 +88,7 @@ namespace poselki
             {
                 return false;
             }
-}
+        }
         public bool UpdateVillageHouses()
         {
             try
@@ -293,8 +293,8 @@ namespace poselki
                     MessageBox.Show(errors.getError(ex.Number.ToString()), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
-                RefreshAllTables();
+            MessageBox.Show("Запись удалена", "ОК", MessageBoxButton.OK, MessageBoxImage.Information);
+            RefreshAllTables();
             }
         }
 
@@ -313,10 +313,15 @@ namespace poselki
                 else if (r == "Return")
                 {
                     var t = BestCurrentItem;
-                    string[] args = new string[t.Row.ItemArray.Length];
-                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
-                        args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalControlData("call developerstoredproc_UPDATE", args, "Edit");
+                    if (t != null)
+                    {
+                        string[] args = new string[t.Row.ItemArray.Length];
+                        for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                            args[i] = t.Row.ItemArray[i].ToString();
+                        MagicUniversalControlData("call developerstoredproc_UPDATE", args, "Edit");
+                    }
+                    else
+                        MessageBox.Show("Редактировать ключи запрещено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (r == "Escape")
                 {
@@ -340,10 +345,15 @@ namespace poselki
                 else if (r == "Return")
                 {
                     var t = BestCurrentItem;
-                    string[] args = new string[t.Row.ItemArray.Length];
-                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
-                        args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalControlData("call villagesstoredproc_UPDATE", args, "Edit");
+                    if (t != null)
+                    {
+                        string[] args = new string[t.Row.ItemArray.Length];
+                        for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                            args[i] = t.Row.ItemArray[i].ToString();
+                        MagicUniversalControlData("call villagesstoredproc_UPDATE", args, "Edit");
+                    }
+                    else
+                        MessageBox.Show("Редактировать ключи запрещено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (r == "Escape")
                 {
@@ -367,10 +377,15 @@ namespace poselki
                 else if (r == "Return")
                 {
                     var t = BestCurrentItem;
-                    string[] args = new string[t.Row.ItemArray.Length];
-                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
-                        args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalControlData("call villagehousesstoredproc_UPDATE", args, "Edit");
+                    if (t != null)
+                    {
+                        string[] args = new string[t.Row.ItemArray.Length];
+                        for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                            args[i] = t.Row.ItemArray[i].ToString();
+                        MagicUniversalControlData("call villagehousesstoredproc_UPDATE", args, "Edit");
+                    }
+                    else
+                        MessageBox.Show("Редактировать ключи запрещено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (r == "Escape")
                 {
@@ -394,10 +409,15 @@ namespace poselki
                 else if (r == "Return")
                 {
                     var t = BestCurrentItem;
-                    string[] args = new string[t.Row.ItemArray.Length];
-                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
-                        args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalControlData("call companytypesproc_UPDATE", args, "Edit");
+                    if (t != null)
+                    {
+                        string[] args = new string[t.Row.ItemArray.Length];
+                        for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                            args[i] = t.Row.ItemArray[i].ToString();
+                        MagicUniversalControlData("call companytypesproc_UPDATE", args, "Edit");
+                    }
+                    else
+                        MessageBox.Show("Редактировать ключи запрещено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else if (r == "Escape")
                 {
@@ -421,10 +441,17 @@ namespace poselki
                 else if (r == "Return")
                 {
                     var t = BestCurrentItem;
-                    string[] args = new string[t.Row.ItemArray.Length];
-                    for (int i = 0; i < t.Row.ItemArray.Length; i++)
-                        args[i] = t.Row.ItemArray[i].ToString();
-                    MagicUniversalControlData("call housetypesproc_UPDATE", args, "Edit");
+                    if (t != null)
+                    {
+                        string[] args = new string[t.Row.ItemArray.Length];
+                        for (int i = 0; i < t.Row.ItemArray.Length; i++)
+                            args[i] = t.Row.ItemArray[i].ToString();
+                        MagicUniversalControlData("call housetypesproc_UPDATE", args, "Edit");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Редактировать ключи запрещено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else if (r == "Escape")
                 {
@@ -453,13 +480,47 @@ namespace poselki
             catch (Exception)
             { errors.ExceptionProtector(); }
         }
-
+        private DataRowView BlockUpdate(object sender, DataGridCellEditEndingEventArgs e, int[] itemarr)
+        {
+            DataRowView TMPGridRow = null;
+            if (itemarr[0] != -1)
+            {
+                for (int i = 0; i < itemarr.Length; i++)
+                {
+                    if (e.Column.DisplayIndex != i)
+                    {
+                        try
+                        {
+                            TMPGridRow = (DataRowView)(sender as DataGrid).CurrentItem;
+                        }
+                        catch (Exception)
+                        { }
+                    }
+                    else
+                    {
+                        TMPGridRow = null;
+                        return TMPGridRow;
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    TMPGridRow = (DataRowView)(sender as DataGrid).CurrentItem;
+                }
+                catch (Exception)
+                { }
+            }
+            return TMPGridRow;
+        }
         // Костыли, которые не нужны в паскале
         private void VillageHouses_Grid_Table_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             try
             {
-                BestCurrentItem = (DataRowView)VillageHouses_Grid_Table.CurrentItem;
+                int[] itemarr = { 1 };
+                BestCurrentItem = BlockUpdate(sender, e, itemarr);
             }   
             catch (Exception)
             { errors.ExceptionProtector(); }
@@ -468,7 +529,8 @@ namespace poselki
         {
             try
             { 
-                BestCurrentItem = (DataRowView)Company_Types_DataGRID.CurrentItem;
+                int[] itemarr = { 1 };
+                BestCurrentItem = BlockUpdate(sender, e, itemarr);
             }
             catch (Exception)
             { errors.ExceptionProtector(); }
@@ -477,16 +539,18 @@ namespace poselki
         {
             try
             {
-                BestCurrentItem = (DataRowView)House_Types_DataGRID.CurrentItem;
+                int[] itemarr = { 1 };
+                BestCurrentItem = BlockUpdate(sender, e, itemarr);
             }
             catch (Exception)
             { errors.ExceptionProtector(); }
-}
+        }
         private void AdminAccountsGRID_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             try
             {
-                BestCurrentItem = (DataRowView)AdminAccountsGRID.CurrentItem;
+                int[] itemarr = { 1 };
+                BestCurrentItem = BlockUpdate(sender, e, itemarr);
             }
             catch (Exception)
             { errors.ExceptionProtector(); }
@@ -495,17 +559,18 @@ namespace poselki
         {
             try
             {
-                BestCurrentItem = (DataRowView)testos.CurrentItem;
+                int[] itemarr = { 1 };
+                BestCurrentItem = BlockUpdate(sender, e, itemarr);
             }
             catch (Exception)
-            { errors.ExceptionProtector();
-    }
-}
+            { errors.ExceptionProtector();}
+        }
         private void Villages_Grid_Table_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             try
-            { 
-                BestCurrentItem = (DataRowView)Villages_Grid_Table.CurrentItem;
+            {
+                int[] itemarr = { 1 };
+                BestCurrentItem = BlockUpdate(sender, e, itemarr);
             }
             catch (Exception)
             { errors.ExceptionProtector(); }
